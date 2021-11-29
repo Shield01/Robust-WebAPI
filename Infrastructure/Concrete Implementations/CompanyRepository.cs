@@ -36,6 +36,11 @@ namespace Infrastructure.Concrete_Implementations
             }
         }
 
+        public void DeleteCompany(Company company)
+        {
+            Delete(company);
+        }
+
         public IEnumerable<Company> FindAllCompanies(bool trackChanges) => FindAll(trackChanges).OrderBy(c => c.Name).ToList();
 
         public Company FindCompany(Guid id, bool trackChanges)

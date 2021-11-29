@@ -27,6 +27,11 @@ namespace Infrastructure.Concrete_Implementations
             Create(employee);
         }
 
+        public void DeleteEmployee(Employee employee)
+        {
+            Delete(employee);
+        }
+
         public IEnumerable<Employee> GetAllEmployeesOfACompany(Guid companyId, bool trackChanges)
         {
             var value = FindByCondition(e => e.CompanyId

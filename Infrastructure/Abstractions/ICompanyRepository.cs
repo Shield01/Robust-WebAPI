@@ -16,5 +16,7 @@ namespace Infrastructure.Abstractions
         void CreateMultipleCompanies(IEnumerable<Company> companies);
 
         IEnumerable<Company> FindMultipleCompanies(IEnumerable<Guid> guids, bool trackChanges);
+
+        void DeleteCompany(Company company);
     }
 }

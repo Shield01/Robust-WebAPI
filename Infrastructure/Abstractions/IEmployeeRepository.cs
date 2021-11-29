@@ -12,5 +12,7 @@ namespace Infrastructure.Abstractions
         void CreateEmployee(Guid companyId, Employee employee);
 
         Employee GetAnEmployeeFromACompany(Guid companyId, Guid employeeId, bool trackChanges);
+
+        void DeleteEmployee(Employee employee);
     }
 }

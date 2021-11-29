@@ -16,11 +16,19 @@ namespace WebApi
                 ForMember(c => c.FullAddress, 
                 opt => opt.MapFrom(x => string.Join(" ", x.Address, x.Country)));
 
-            CreateMap<Employee, EmployeeDTO>();
-
             CreateMap<CompanyInputDTO, Company>();
 
+            CreateMap<CompanyUpdateDTO, Company>();
+
+            CreateMap<CompanyUpdateDTO, Company>().ReverseMap();
+
             CreateMap<EmployeeInputDTO, Employee>();
+
+            CreateMap<Employee, EmployeeDTO>();
+
+            CreateMap<EmployeeUpdateDTO, Employee>();
+
+            CreateMap<EmployeeUpdateDTO, Employee>().ReverseMap();
         }
     }
 }

@@ -4,6 +4,7 @@ using Infrastructure.Data_Transfer_Objects;
 using Infrastructure.Database_Context;
 using Infrastructure.Repository_Manager;
 using LogService.Abstractions;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -25,7 +26,7 @@ namespace WebApi.Controllers
 
         private readonly ILogImplementations _logImplementations;
 
-        public CompanysController(InfrastructureDbContext dbContext, 
+        public CompanysController(
 
             IRepositoryManager repositoryManager, 
 
@@ -100,9 +101,6 @@ namespace WebApi.Controllers
         }
 
 
-
-
-
         // POST api/<CompanysController>
         [HttpPost]
         public IActionResult CreateCompany([FromBody] CompanyInputDTO company)
@@ -152,14 +150,99 @@ namespace WebApi.Controllers
 
         // PUT api/<CompanysController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public IActionResult Put(Guid id, [FromBody] CompanyUpdateDTO companyUpdateDTO)
         {
+            if(companyUpdateDTO == null)
+            {
+                _logImplementations.ErrorMessage($"The company object passed by the client is null");
+
+                return BadRequest("Input the value of your company object");
+            }
+            else
+            {
+                var companyEntity = _repositoryManager.Company.FindCompany(id, trackChanges: true);
+
+                if(companyEntity == null)
+                {
+                    _logImplementations.InfoMessage($"The company with id, {id} does not exist in the database");
+
+                    return NotFound("Company not found in the database");
+                }
+                else
+                {
+                   var newObject =  _mapper.Map(companyUpdateDTO, companyEntity);
+
+                    _repositoryManager.Save();
+
+                    var valueToReturn = _mapper.Map<CompanyDTO>(newObject);
+
+                    return Ok(valueToReturn);
+                }
+            }
         }
 
         // DELETE api/<CompanysController>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public IActionResult Delete(Guid id)
         {
+            var company = _repositoryManager.Company.FindCompany(id, trackChanges: false);
+
+            if (company == null)
+            {
+                _logImplementations.ErrorMessage($"Company with id: {id} does mot exist in the database.");
+
+                return BadRequest("Company does not exist in the database");
+            }
+            else
+            {
+                _repositoryManager.Company.DeleteCompany(company);
+
+                _repositoryManager.Save();
+
+                return NoContent();
+            }
+        }
+
+
+        [HttpPatch("{id}")]
+        public IActionResult PatchACompanysRecord(Guid id, [FromBody] JsonPatchDocument<CompanyUpdateDTO> companyUpdateDTO)
+        {
+            var company = _repositoryManager.Company.FindCompany(id, trackChanges: true);
+
+            if(company == null)
+            {
+                _logImplementations.ErrorMessage($"The company with id: {id}, does not exist in the database");
+
+                return BadRequest("Input a valid company id");
+            }
+            else
+            {
+                if(companyUpdateDTO == null)
+                {
+                    _logImplementations.InfoMessage($"Patch object inputed by client is null");
+
+                    return BadRequest("Input a valid patch object");
+                }
+                else
+                {
+                    var objectToPatch = _mapper.Map<CompanyUpdateDTO>(company);
+
+                    companyUpdateDTO.ApplyTo(objectToPatch, ModelState);
+
+                    if (!TryValidateModel(objectToPatch))
+                    {
+                        return ValidationProblem(ModelState);
+                    }
+                    else
+                    {
+                        _mapper.Map(objectToPatch, company);
+
+                        _repositoryManager.Save();
+
+                        return NoContent();
+                    }
+                }
+            }
         }
     }
 }

@@ -37,7 +37,7 @@ namespace WebApi
             services.AddControllers(config => {
                 config.RespectBrowserAcceptHeader = true;
                 config.ReturnHttpNotAcceptable = true;
-            })
+            }).AddNewtonsoftJson()
             .ConfigureCSVFormatter();
 
             services.ConfigureCors();

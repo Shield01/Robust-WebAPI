@@ -10404,3 +10404,133 @@
 2021-11-29 14:06:11.3702 Info Message Template Auto Format enabled
 2021-11-29 14:06:11.4638 Info Adding target FileTarget(Name=logfile)
 2021-11-29 14:06:11.5402 Info Validating config: TargetNames=logfile, ConfigItems=12, FilePath=C:\Users\CDL\OneDrive\Desktop\ZLibProjectMyWay\WebApi/LogConfiguration.config
+2021-11-29 14:21:23.1329 Info Auto loading assembly file: C:\Users\CDL\OneDrive\Desktop\ZLibProjectMyWay\WebApi\bin\Debug\netcoreapp3.1\NLog.Extensions.Logging.dll
+2021-11-29 14:21:23.1543 Info Loading assembly file: C:\Users\CDL\OneDrive\Desktop\ZLibProjectMyWay\WebApi\bin\Debug\netcoreapp3.1\NLog.Extensions.Logging.dll
+2021-11-29 14:21:23.1662 Info NLog.Extensions.Logging, Version=1.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 1.7.4.1610. Product version: 1.7.4+e2bffa9e949fb4760d75aca224e78631c063f087. GlobalAssemblyCache: False
+2021-11-29 14:21:23.1662 Info Auto loading assembly file: C:\Users\CDL\OneDrive\Desktop\ZLibProjectMyWay\WebApi\bin\Debug\netcoreapp3.1\NLog.Extensions.Logging.dll succeeded!
+2021-11-29 14:21:23.1769 Info Message Template Auto Format enabled
+2021-11-29 14:21:23.2588 Info Adding target FileTarget(Name=logfile)
+2021-11-29 14:21:23.3111 Info Validating config: TargetNames=logfile, ConfigItems=12, FilePath=C:\Users\CDL\OneDrive\Desktop\ZLibProjectMyWay\WebApi/LogConfiguration.config
+2021-11-29 14:21:44.4894 Info Auto loading assembly file: C:\Users\CDL\OneDrive\Desktop\ZLibProjectMyWay\WebApi\bin\Debug\netcoreapp3.1\NLog.Extensions.Logging.dll
+2021-11-29 14:21:44.5247 Info Loading assembly file: C:\Users\CDL\OneDrive\Desktop\ZLibProjectMyWay\WebApi\bin\Debug\netcoreapp3.1\NLog.Extensions.Logging.dll
+2021-11-29 14:21:44.5484 Info NLog.Extensions.Logging, Version=1.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 1.7.4.1610. Product version: 1.7.4+e2bffa9e949fb4760d75aca224e78631c063f087. GlobalAssemblyCache: False
+2021-11-29 14:21:44.5540 Info Auto loading assembly file: C:\Users\CDL\OneDrive\Desktop\ZLibProjectMyWay\WebApi\bin\Debug\netcoreapp3.1\NLog.Extensions.Logging.dll succeeded!
+2021-11-29 14:21:44.6043 Info Message Template Auto Format enabled
+2021-11-29 14:21:44.8671 Info Adding target FileTarget(Name=logfile)
+2021-11-29 14:21:44.9590 Info Validating config: TargetNames=logfile, ConfigItems=12, FilePath=C:\Users\CDL\OneDrive\Desktop\ZLibProjectMyWay\WebApi/LogConfiguration.config
+2021-11-29 14:30:47.4900 Info Auto loading assembly file: C:\Users\CDL\OneDrive\Desktop\ZLibProjectMyWay\WebApi\bin\Debug\netcoreapp3.1\NLog.Extensions.Logging.dll
+2021-11-29 14:30:47.9882 Info Loading assembly file: C:\Users\CDL\OneDrive\Desktop\ZLibProjectMyWay\WebApi\bin\Debug\netcoreapp3.1\NLog.Extensions.Logging.dll
+2021-11-29 14:30:48.5014 Info NLog.Extensions.Logging, Version=1.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 1.7.4.1610. Product version: 1.7.4+e2bffa9e949fb4760d75aca224e78631c063f087. GlobalAssemblyCache: False
+2021-11-29 14:30:48.5102 Info Auto loading assembly file: C:\Users\CDL\OneDrive\Desktop\ZLibProjectMyWay\WebApi\bin\Debug\netcoreapp3.1\NLog.Extensions.Logging.dll succeeded!
+2021-11-29 14:30:48.5670 Info Message Template Auto Format enabled
+2021-11-29 14:30:49.7348 Info Adding target FileTarget(Name=logfile)
+2021-11-29 14:30:50.2082 Info Validating config: TargetNames=logfile, ConfigItems=12, FilePath=C:\Users\CDL\OneDrive\Desktop\ZLibProjectMyWay\WebApi/LogConfiguration.config
+2021-11-29 14:37:55.4545 Info Auto loading assembly file: C:\Users\CDL\OneDrive\Desktop\ZLibProjectMyWay\WebApi\bin\Debug\netcoreapp3.1\NLog.Extensions.Logging.dll
+2021-11-29 14:37:55.5401 Info Loading assembly file: C:\Users\CDL\OneDrive\Desktop\ZLibProjectMyWay\WebApi\bin\Debug\netcoreapp3.1\NLog.Extensions.Logging.dll
+2021-11-29 14:37:55.7042 Info NLog.Extensions.Logging, Version=1.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 1.7.4.1610. Product version: 1.7.4+e2bffa9e949fb4760d75aca224e78631c063f087. GlobalAssemblyCache: False
+2021-11-29 14:37:55.7171 Info Auto loading assembly file: C:\Users\CDL\OneDrive\Desktop\ZLibProjectMyWay\WebApi\bin\Debug\netcoreapp3.1\NLog.Extensions.Logging.dll succeeded!
+2021-11-29 14:37:55.7254 Info Message Template Auto Format enabled
+2021-11-29 14:37:55.8432 Info Adding target FileTarget(Name=logfile)
+2021-11-29 14:37:55.9046 Info Validating config: TargetNames=logfile, ConfigItems=12, FilePath=C:\Users\CDL\OneDrive\Desktop\ZLibProjectMyWay\WebApi/LogConfiguration.config
+2021-11-29 15:34:44.4568 Info Auto loading assembly file: C:\Users\CDL\OneDrive\Desktop\ZLibProjectMyWay\WebApi\bin\Debug\netcoreapp3.1\NLog.Extensions.Logging.dll
+2021-11-29 15:34:44.5017 Info Loading assembly file: C:\Users\CDL\OneDrive\Desktop\ZLibProjectMyWay\WebApi\bin\Debug\netcoreapp3.1\NLog.Extensions.Logging.dll
+2021-11-29 15:34:44.5240 Info NLog.Extensions.Logging, Version=1.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 1.7.4.1610. Product version: 1.7.4+e2bffa9e949fb4760d75aca224e78631c063f087. GlobalAssemblyCache: False
+2021-11-29 15:34:44.5240 Info Auto loading assembly file: C:\Users\CDL\OneDrive\Desktop\ZLibProjectMyWay\WebApi\bin\Debug\netcoreapp3.1\NLog.Extensions.Logging.dll succeeded!
+2021-11-29 15:34:44.5240 Info Message Template Auto Format enabled
+2021-11-29 15:34:44.6115 Info Adding target FileTarget(Name=logfile)
+2021-11-29 15:34:44.6790 Info Validating config: TargetNames=logfile, ConfigItems=12, FilePath=C:\Users\CDL\OneDrive\Desktop\ZLibProjectMyWay\WebApi/LogConfiguration.config
+2021-11-29 15:40:59.0535 Info Auto loading assembly file: C:\Users\CDL\OneDrive\Desktop\ZLibProjectMyWay\WebApi\bin\Debug\netcoreapp3.1\NLog.Extensions.Logging.dll
+2021-11-29 15:40:59.0808 Info Loading assembly file: C:\Users\CDL\OneDrive\Desktop\ZLibProjectMyWay\WebApi\bin\Debug\netcoreapp3.1\NLog.Extensions.Logging.dll
+2021-11-29 15:40:59.0967 Info NLog.Extensions.Logging, Version=1.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 1.7.4.1610. Product version: 1.7.4+e2bffa9e949fb4760d75aca224e78631c063f087. GlobalAssemblyCache: False
+2021-11-29 15:40:59.1034 Info Auto loading assembly file: C:\Users\CDL\OneDrive\Desktop\ZLibProjectMyWay\WebApi\bin\Debug\netcoreapp3.1\NLog.Extensions.Logging.dll succeeded!
+2021-11-29 15:40:59.1034 Info Message Template Auto Format enabled
+2021-11-29 15:40:59.2037 Info Adding target FileTarget(Name=logfile)
+2021-11-29 15:40:59.2790 Info Validating config: TargetNames=logfile, ConfigItems=12, FilePath=C:\Users\CDL\OneDrive\Desktop\ZLibProjectMyWay\WebApi/LogConfiguration.config
+2021-11-29 15:46:14.5835 Info AppDomain Shutting down. Logger closing...
+2021-11-29 15:46:14.6923 Info Logger has been shut down.
+2021-11-29 17:43:11.7019 Info Auto loading assembly file: C:\Users\CDL\OneDrive\Desktop\ZLibProjectMyWay\WebApi\bin\Debug\netcoreapp3.1\NLog.Extensions.Logging.dll
+2021-11-29 17:43:11.7280 Info Loading assembly file: C:\Users\CDL\OneDrive\Desktop\ZLibProjectMyWay\WebApi\bin\Debug\netcoreapp3.1\NLog.Extensions.Logging.dll
+2021-11-29 17:43:11.7400 Info NLog.Extensions.Logging, Version=1.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 1.7.4.1610. Product version: 1.7.4+e2bffa9e949fb4760d75aca224e78631c063f087. GlobalAssemblyCache: False
+2021-11-29 17:43:11.7400 Info Auto loading assembly file: C:\Users\CDL\OneDrive\Desktop\ZLibProjectMyWay\WebApi\bin\Debug\netcoreapp3.1\NLog.Extensions.Logging.dll succeeded!
+2021-11-29 17:43:11.7400 Info Message Template Auto Format enabled
+2021-11-29 17:43:11.8264 Info Adding target FileTarget(Name=logfile)
+2021-11-29 17:43:11.8768 Info Validating config: TargetNames=logfile, ConfigItems=12, FilePath=C:\Users\CDL\OneDrive\Desktop\ZLibProjectMyWay\WebApi/LogConfiguration.config
+2021-11-29 17:53:42.3895 Info Auto loading assembly file: C:\Users\CDL\OneDrive\Desktop\ZLibProjectMyWay\WebApi\bin\Debug\netcoreapp3.1\NLog.Extensions.Logging.dll
+2021-11-29 17:53:42.4007 Info Loading assembly file: C:\Users\CDL\OneDrive\Desktop\ZLibProjectMyWay\WebApi\bin\Debug\netcoreapp3.1\NLog.Extensions.Logging.dll
+2021-11-29 17:53:42.4187 Info NLog.Extensions.Logging, Version=1.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 1.7.4.1610. Product version: 1.7.4+e2bffa9e949fb4760d75aca224e78631c063f087. GlobalAssemblyCache: False
+2021-11-29 17:53:42.4187 Info Auto loading assembly file: C:\Users\CDL\OneDrive\Desktop\ZLibProjectMyWay\WebApi\bin\Debug\netcoreapp3.1\NLog.Extensions.Logging.dll succeeded!
+2021-11-29 17:53:42.4336 Info Message Template Auto Format enabled
+2021-11-29 17:53:42.5176 Info Adding target FileTarget(Name=logfile)
+2021-11-29 17:53:42.5748 Info Validating config: TargetNames=logfile, ConfigItems=12, FilePath=C:\Users\CDL\OneDrive\Desktop\ZLibProjectMyWay\WebApi/LogConfiguration.config
+2021-11-29 17:54:26.7543 Info Auto loading assembly file: C:\Users\CDL\OneDrive\Desktop\ZLibProjectMyWay\WebApi\bin\Debug\netcoreapp3.1\NLog.Extensions.Logging.dll
+2021-11-29 17:54:26.7744 Info Loading assembly file: C:\Users\CDL\OneDrive\Desktop\ZLibProjectMyWay\WebApi\bin\Debug\netcoreapp3.1\NLog.Extensions.Logging.dll
+2021-11-29 17:54:26.8295 Info NLog.Extensions.Logging, Version=1.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 1.7.4.1610. Product version: 1.7.4+e2bffa9e949fb4760d75aca224e78631c063f087. GlobalAssemblyCache: False
+2021-11-29 17:54:26.8403 Info Auto loading assembly file: C:\Users\CDL\OneDrive\Desktop\ZLibProjectMyWay\WebApi\bin\Debug\netcoreapp3.1\NLog.Extensions.Logging.dll succeeded!
+2021-11-29 17:54:26.8403 Info Message Template Auto Format enabled
+2021-11-29 17:54:26.9542 Info Adding target FileTarget(Name=logfile)
+2021-11-29 17:54:27.0221 Info Validating config: TargetNames=logfile, ConfigItems=12, FilePath=C:\Users\CDL\OneDrive\Desktop\ZLibProjectMyWay\WebApi/LogConfiguration.config
+2021-11-29 18:10:14.1493 Info Auto loading assembly file: C:\Users\CDL\OneDrive\Desktop\ZLibProjectMyWay\WebApi\bin\Debug\netcoreapp3.1\NLog.Extensions.Logging.dll
+2021-11-29 18:10:14.1493 Info Loading assembly file: C:\Users\CDL\OneDrive\Desktop\ZLibProjectMyWay\WebApi\bin\Debug\netcoreapp3.1\NLog.Extensions.Logging.dll
+2021-11-29 18:10:14.1767 Info NLog.Extensions.Logging, Version=1.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 1.7.4.1610. Product version: 1.7.4+e2bffa9e949fb4760d75aca224e78631c063f087. GlobalAssemblyCache: False
+2021-11-29 18:10:14.1837 Info Auto loading assembly file: C:\Users\CDL\OneDrive\Desktop\ZLibProjectMyWay\WebApi\bin\Debug\netcoreapp3.1\NLog.Extensions.Logging.dll succeeded!
+2021-11-29 18:10:14.1837 Info Message Template Auto Format enabled
+2021-11-29 18:10:14.3093 Info Adding target FileTarget(Name=logfile)
+2021-11-29 18:10:14.3712 Info Validating config: TargetNames=logfile, ConfigItems=12, FilePath=C:\Users\CDL\OneDrive\Desktop\ZLibProjectMyWay\WebApi/LogConfiguration.config
+2021-11-29 18:15:56.8105 Info Auto loading assembly file: C:\Users\CDL\OneDrive\Desktop\ZLibProjectMyWay\WebApi\bin\Debug\netcoreapp3.1\NLog.Extensions.Logging.dll
+2021-11-29 18:15:56.8315 Info Loading assembly file: C:\Users\CDL\OneDrive\Desktop\ZLibProjectMyWay\WebApi\bin\Debug\netcoreapp3.1\NLog.Extensions.Logging.dll
+2021-11-29 18:15:56.8467 Info NLog.Extensions.Logging, Version=1.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 1.7.4.1610. Product version: 1.7.4+e2bffa9e949fb4760d75aca224e78631c063f087. GlobalAssemblyCache: False
+2021-11-29 18:15:56.8538 Info Auto loading assembly file: C:\Users\CDL\OneDrive\Desktop\ZLibProjectMyWay\WebApi\bin\Debug\netcoreapp3.1\NLog.Extensions.Logging.dll succeeded!
+2021-11-29 18:15:56.8538 Info Message Template Auto Format enabled
+2021-11-29 18:15:56.9571 Info Adding target FileTarget(Name=logfile)
+2021-11-29 18:15:57.0230 Info Validating config: TargetNames=logfile, ConfigItems=12, FilePath=C:\Users\CDL\OneDrive\Desktop\ZLibProjectMyWay\WebApi/LogConfiguration.config
+2021-11-29 18:38:46.4707 Info Auto loading assembly file: C:\Users\CDL\OneDrive\Desktop\ZLibProjectMyWay\WebApi\bin\Debug\netcoreapp3.1\NLog.Extensions.Logging.dll
+2021-11-29 18:38:46.5137 Info Loading assembly file: C:\Users\CDL\OneDrive\Desktop\ZLibProjectMyWay\WebApi\bin\Debug\netcoreapp3.1\NLog.Extensions.Logging.dll
+2021-11-29 18:38:46.5325 Info NLog.Extensions.Logging, Version=1.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 1.7.4.1610. Product version: 1.7.4+e2bffa9e949fb4760d75aca224e78631c063f087. GlobalAssemblyCache: False
+2021-11-29 18:38:46.5390 Info Auto loading assembly file: C:\Users\CDL\OneDrive\Desktop\ZLibProjectMyWay\WebApi\bin\Debug\netcoreapp3.1\NLog.Extensions.Logging.dll succeeded!
+2021-11-29 18:38:46.5390 Info Message Template Auto Format enabled
+2021-11-29 18:38:46.6670 Info Adding target FileTarget(Name=logfile)
+2021-11-29 18:38:46.7362 Info Validating config: TargetNames=logfile, ConfigItems=12, FilePath=C:\Users\CDL\OneDrive\Desktop\ZLibProjectMyWay\WebApi/LogConfiguration.config
+2021-11-29 18:49:27.6102 Info Auto loading assembly file: C:\Users\CDL\OneDrive\Desktop\ZLibProjectMyWay\WebApi\bin\Debug\netcoreapp3.1\NLog.Extensions.Logging.dll
+2021-11-29 18:49:27.6238 Info Loading assembly file: C:\Users\CDL\OneDrive\Desktop\ZLibProjectMyWay\WebApi\bin\Debug\netcoreapp3.1\NLog.Extensions.Logging.dll
+2021-11-29 18:49:27.6407 Info NLog.Extensions.Logging, Version=1.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 1.7.4.1610. Product version: 1.7.4+e2bffa9e949fb4760d75aca224e78631c063f087. GlobalAssemblyCache: False
+2021-11-29 18:49:27.6483 Info Auto loading assembly file: C:\Users\CDL\OneDrive\Desktop\ZLibProjectMyWay\WebApi\bin\Debug\netcoreapp3.1\NLog.Extensions.Logging.dll succeeded!
+2021-11-29 18:49:27.6483 Info Message Template Auto Format enabled
+2021-11-29 18:49:27.7675 Info Adding target FileTarget(Name=logfile)
+2021-11-29 18:49:27.8394 Info Validating config: TargetNames=logfile, ConfigItems=12, FilePath=C:\Users\CDL\OneDrive\Desktop\ZLibProjectMyWay\WebApi/LogConfiguration.config
+2021-11-29 18:52:14.3704 Info Auto loading assembly file: C:\Users\CDL\OneDrive\Desktop\ZLibProjectMyWay\WebApi\bin\Debug\netcoreapp3.1\NLog.Extensions.Logging.dll
+2021-11-29 18:52:14.4585 Info Loading assembly file: C:\Users\CDL\OneDrive\Desktop\ZLibProjectMyWay\WebApi\bin\Debug\netcoreapp3.1\NLog.Extensions.Logging.dll
+2021-11-29 18:52:14.4585 Info NLog.Extensions.Logging, Version=1.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 1.7.4.1610. Product version: 1.7.4+e2bffa9e949fb4760d75aca224e78631c063f087. GlobalAssemblyCache: False
+2021-11-29 18:52:14.4788 Info Auto loading assembly file: C:\Users\CDL\OneDrive\Desktop\ZLibProjectMyWay\WebApi\bin\Debug\netcoreapp3.1\NLog.Extensions.Logging.dll succeeded!
+2021-11-29 18:52:14.4788 Info Message Template Auto Format enabled
+2021-11-29 18:52:14.5823 Info Adding target FileTarget(Name=logfile)
+2021-11-29 18:52:14.6612 Info Validating config: TargetNames=logfile, ConfigItems=12, FilePath=C:\Users\CDL\OneDrive\Desktop\ZLibProjectMyWay\WebApi/LogConfiguration.config
+2021-11-29 18:52:51.1065 Info Auto loading assembly file: C:\Users\CDL\OneDrive\Desktop\ZLibProjectMyWay\WebApi\bin\Debug\netcoreapp3.1\NLog.Extensions.Logging.dll
+2021-11-29 18:52:51.1192 Info Loading assembly file: C:\Users\CDL\OneDrive\Desktop\ZLibProjectMyWay\WebApi\bin\Debug\netcoreapp3.1\NLog.Extensions.Logging.dll
+2021-11-29 18:52:51.1341 Info NLog.Extensions.Logging, Version=1.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 1.7.4.1610. Product version: 1.7.4+e2bffa9e949fb4760d75aca224e78631c063f087. GlobalAssemblyCache: False
+2021-11-29 18:52:51.1341 Info Auto loading assembly file: C:\Users\CDL\OneDrive\Desktop\ZLibProjectMyWay\WebApi\bin\Debug\netcoreapp3.1\NLog.Extensions.Logging.dll succeeded!
+2021-11-29 18:52:51.1468 Info Message Template Auto Format enabled
+2021-11-29 18:52:51.2482 Info Adding target FileTarget(Name=logfile)
+2021-11-29 18:52:51.3053 Info Validating config: TargetNames=logfile, ConfigItems=12, FilePath=C:\Users\CDL\OneDrive\Desktop\ZLibProjectMyWay\WebApi/LogConfiguration.config
+2021-11-29 18:54:16.7750 Info Auto loading assembly file: C:\Users\CDL\OneDrive\Desktop\ZLibProjectMyWay\WebApi\bin\Debug\netcoreapp3.1\NLog.Extensions.Logging.dll
+2021-11-29 18:54:16.7750 Info Loading assembly file: C:\Users\CDL\OneDrive\Desktop\ZLibProjectMyWay\WebApi\bin\Debug\netcoreapp3.1\NLog.Extensions.Logging.dll
+2021-11-29 18:54:16.8007 Info NLog.Extensions.Logging, Version=1.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 1.7.4.1610. Product version: 1.7.4+e2bffa9e949fb4760d75aca224e78631c063f087. GlobalAssemblyCache: False
+2021-11-29 18:54:16.8069 Info Auto loading assembly file: C:\Users\CDL\OneDrive\Desktop\ZLibProjectMyWay\WebApi\bin\Debug\netcoreapp3.1\NLog.Extensions.Logging.dll succeeded!
+2021-11-29 18:54:16.8069 Info Message Template Auto Format enabled
+2021-11-29 18:54:16.9260 Info Adding target FileTarget(Name=logfile)
+2021-11-29 18:54:16.9940 Info Validating config: TargetNames=logfile, ConfigItems=12, FilePath=C:\Users\CDL\OneDrive\Desktop\ZLibProjectMyWay\WebApi/LogConfiguration.config
+2021-11-29 19:01:21.8893 Info Auto loading assembly file: C:\Users\CDL\OneDrive\Desktop\ZLibProjectMyWay\WebApi\bin\Debug\netcoreapp3.1\NLog.Extensions.Logging.dll
+2021-11-29 19:01:21.9025 Info Loading assembly file: C:\Users\CDL\OneDrive\Desktop\ZLibProjectMyWay\WebApi\bin\Debug\netcoreapp3.1\NLog.Extensions.Logging.dll
+2021-11-29 19:01:21.9270 Info NLog.Extensions.Logging, Version=1.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 1.7.4.1610. Product version: 1.7.4+e2bffa9e949fb4760d75aca224e78631c063f087. GlobalAssemblyCache: False
+2021-11-29 19:01:21.9362 Info Auto loading assembly file: C:\Users\CDL\OneDrive\Desktop\ZLibProjectMyWay\WebApi\bin\Debug\netcoreapp3.1\NLog.Extensions.Logging.dll succeeded!
+2021-11-29 19:01:21.9446 Info Message Template Auto Format enabled
+2021-11-29 19:01:22.0545 Info Adding target FileTarget(Name=logfile)
+2021-11-29 19:01:22.1248 Info Validating config: TargetNames=logfile, ConfigItems=12, FilePath=C:\Users\CDL\OneDrive\Desktop\ZLibProjectMyWay\WebApi/LogConfiguration.config
+2021-11-29 19:04:01.6527 Info AppDomain Shutting down. Logger closing...
+2021-11-29 19:04:01.7026 Info Logger has been shut down.
+2021-11-29 19:06:11.2059 Info Auto loading assembly file: C:\Users\CDL\OneDrive\Desktop\ZLibProjectMyWay\WebApi\bin\Debug\netcoreapp3.1\NLog.Extensions.Logging.dll
+2021-11-29 19:06:11.3176 Info Loading assembly file: C:\Users\CDL\OneDrive\Desktop\ZLibProjectMyWay\WebApi\bin\Debug\netcoreapp3.1\NLog.Extensions.Logging.dll
+2021-11-29 19:06:11.4937 Info NLog.Extensions.Logging, Version=1.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 1.7.4.1610. Product version: 1.7.4+e2bffa9e949fb4760d75aca224e78631c063f087. GlobalAssemblyCache: False
+2021-11-29 19:06:11.4937 Info Auto loading assembly file: C:\Users\CDL\OneDrive\Desktop\ZLibProjectMyWay\WebApi\bin\Debug\netcoreapp3.1\NLog.Extensions.Logging.dll succeeded!
+2021-11-29 19:06:11.5159 Info Message Template Auto Format enabled
+2021-11-29 19:06:11.6093 Info Adding target FileTarget(Name=logfile)
+2021-11-29 19:06:11.6770 Info Validating config: TargetNames=logfile, ConfigItems=12, FilePath=C:\Users\CDL\OneDrive\Desktop\ZLibProjectMyWay\WebApi/LogConfiguration.config

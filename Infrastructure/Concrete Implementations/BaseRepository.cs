@@ -11,7 +11,7 @@ namespace Infrastructure.Concrete_Implementations
 {
     public class BaseRepository<T> : IBaseRepository<T> where T : class
     {
-        private InfrastructureDbContext _dbContext;
+        private readonly InfrastructureDbContext _dbContext;
 
         public BaseRepository(InfrastructureDbContext dbContext)
         {

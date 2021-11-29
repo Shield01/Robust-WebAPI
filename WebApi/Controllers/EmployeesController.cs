@@ -4,6 +4,7 @@ using Infrastructure.Data_Transfer_Objects;
 using Infrastructure.Database_Context;
 using Infrastructure.Repository_Manager;
 using LogService.Abstractions;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -136,14 +137,113 @@ namespace WebApi.Controllers
 
         // PUT api/<EmployeesController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public IActionResult Put(Guid companyId, Guid id, [FromBody] EmployeeUpdateDTO employeeUpdateDTO)
         {
+            var company = _repositoryManager.Company.FindCompany(companyId, trackChanges: false);
+
+            if(company == null)
+            {
+                _logImplementations.ErrorMessage($"Company with id, {companyId}, does not exist in the database");
+
+                return BadRequest("Company does not exist in the database");
+            }
+            else
+            {
+                var employeeEntity = _repositoryManager.Employee.GetAnEmployeeFromACompany(companyId, id, trackChanges: true);
+
+                if(employeeEntity == null)
+                {
+                    _logImplementations.InfoMessage($"Employe with id : {id}, does not exist in the database");
+
+                    return NotFound("Employee not found in the database");
+                }
+                else
+                {
+                    var result = _mapper.Map(employeeUpdateDTO, employeeEntity);
+
+                    _repositoryManager.Save();
+
+                    var valueToReturn = _mapper.Map<EmployeeDTO>(result);
+
+                    return Ok(valueToReturn);
+                }
+            }
         }
 
         // DELETE api/<EmployeesController>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public IActionResult Delete(Guid companyId, Guid id)
         {
+            var company = _repositoryManager.Company.FindCompany(companyId, trackChanges: false);
+
+            if (company == null)
+            {
+                _logImplementations.ErrorMessage($"Company with id {companyId} does not exist in the database");
+
+                return BadRequest("Company Id does not exist");
+            }
+            else
+            {
+                var employeeForCompany = _repositoryManager.Employee.GetAnEmployeeFromACompany(companyId, id, trackChanges: false);
+
+                _repositoryManager.Employee.DeleteEmployee(employeeForCompany);
+
+                _repositoryManager.Save();
+
+                return NoContent();
+            }
+        }
+
+        [HttpPatch("{id}")]
+        public IActionResult PatchEmployeeData(Guid companyId, Guid id, [FromBody] JsonPatchDocument<EmployeeUpdateDTO> employeePatchObject)
+        {
+            if(employeePatchObject == null)
+            {
+                _logImplementations.ErrorMessage($"The patch object sent by the client is null");
+
+                return BadRequest("Input a valid Patch object");
+            }
+            else
+            {
+                var company = _repositoryManager.Company.FindCompany(companyId, trackChanges: false);
+
+                if (company == null)
+                {
+                    _logImplementations.ErrorMessage($"The company with id: {companyId}, does not exist");
+
+                    return NotFound($"The company with {id}, does not exist in the database");
+                }
+                else
+                {
+                    var employee = _repositoryManager.Employee.GetAnEmployeeFromACompany(companyId, id, trackChanges: true);
+
+                    if (employee == null)
+                    {
+                        _logImplementations.InfoMessage($"Employee with the id: {id}, does not exist in the database");
+
+                        return NotFound("Employee not found");
+                    }
+                    else
+                    {
+                        var objectToPatch = _mapper.Map<EmployeeUpdateDTO>(employee);
+
+                        employeePatchObject.ApplyTo(objectToPatch, ModelState);
+
+                        if (!TryValidateModel(objectToPatch))
+                        {
+                            return ValidationProblem(ModelState);
+                        }
+                        else
+                        {
+                            _mapper.Map(objectToPatch, employee);
+
+                            _repositoryManager.Save();
+
+                            return NoContent();
+                        }
+                    }
+                }
+            }
         }
     }
 }
