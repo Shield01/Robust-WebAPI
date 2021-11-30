@@ -27,6 +27,20 @@ namespace Infrastructure.Concrete_Implementations
             Create(employee);
         }
 
+        public void CreateMultipleEmployee(Guid companyId, IEnumerable<Employee> employees)
+        {
+            foreach(var employee in employees)
+            {
+                employee.CompanyId = companyId;
+
+                employee.DateCreated = DateTime.Now;
+
+                employee.IsEnabled = true;
+
+                Create(employee);
+            }
+        }
+
         public void DeleteEmployee(Employee employee)
         {
             Delete(employee);
@@ -45,6 +59,13 @@ namespace Infrastructure.Concrete_Implementations
             var employee = FindByCondition(e => e.CompanyId.Equals(companyId) && e.Id.Equals(employeeId), trackChanges).SingleOrDefault();
 
             return employee;
+        }
+
+        public IEnumerable<Employee> GetMultipleEmployeesById(Guid companyId, IEnumerable<Guid> employeeIds, bool trackChanges)
+        {
+            var value = FindByCondition(e => employeeIds.Contains(e.Id), trackChanges).ToList();
+
+            return value;
         }
     }
 }

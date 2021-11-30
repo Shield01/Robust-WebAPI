@@ -245,5 +245,72 @@ namespace WebApi.Controllers
                 }
             }
         }
+
+        [Route("creatmultipleemployeesforacompany")]
+        [HttpPost]
+        public IActionResult CreateMultipleEmployeesForACompany(Guid companyId, [FromBody] IEnumerable<EmployeeInputDTO> employeeInputDTOs)
+        {
+            var company = _repositoryManager.Company.FindCompany(companyId, trackChanges: false);
+
+            if (company == null)
+            {
+                _logImplementations.ErrorMessage($"The company Id passed by the client doesn't exist on the database");
+
+                return BadRequest($"The company id {companyId} doesn't exist, so who employed the employees ?");
+            }
+            else
+            {
+                if (employeeInputDTOs == null)
+                {
+                    _logImplementations.ErrorMessage($"Employee objects passed by client is null");
+
+                    return BadRequest("Kindly input an employee object");
+                }
+                else
+                {
+                    var employeeToCreate = _mapper.Map<IEnumerable<Employee>>(employeeInputDTOs);
+
+                    _repositoryManager.Employee.CreateMultipleEmployee(companyId, employeeToCreate);
+
+                    _repositoryManager.Save();
+
+                    var objectToReturn = _mapper.Map<IEnumerable<EmployeeDTO>>(employeeToCreate);
+
+                    return Ok(objectToReturn);
+                }
+            }
+        }
+
+        [Route("getmultipleemployeesfromacompanybyid")]
+        [HttpPost]
+        public IActionResult GetMultipleEmployeesFromCompanyById(Guid companyId, [FromBody] IEnumerable<Guid> employeesId)
+        {
+            var company = _repositoryManager.Company.FindCompany(companyId, trackChanges: false);
+
+            if(company == null)
+            {
+                _logImplementations.ErrorMessage($"Company with id: {companyId} does not exist in the database");
+
+                return BadRequest("Input a valid company id");
+            }
+            else
+            {
+                var employeeEntity = _repositoryManager.Employee.GetMultipleEmployeesById(companyId, employeesId, trackChanges: false);
+
+                var employeesToReturn = _mapper.Map<IEnumerable<EmployeeDTO>>(employeeEntity);
+
+                if(employeesId.Count() != employeeEntity.Count())
+                {
+                    _logImplementations.InfoMessage("Not all the employee id passed exist in the database");
+
+                    return Ok(employeesToReturn);
+                }
+                else
+                {
+                    return Ok(employeesToReturn);
+                }
+
+            }
+        }
     }
 }

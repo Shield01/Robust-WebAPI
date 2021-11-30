@@ -14,5 +14,9 @@ namespace Infrastructure.Abstractions
         Employee GetAnEmployeeFromACompany(Guid companyId, Guid employeeId, bool trackChanges);
 
         void DeleteEmployee(Employee employee);
+
+        IEnumerable<Employee> GetMultipleEmployeesById(Guid companyId, IEnumerable<Guid> employeeIds, bool trackChanges);
+
+        void CreateMultipleEmployee(Guid companyId, IEnumerable<Employee> employees);
     }
 }

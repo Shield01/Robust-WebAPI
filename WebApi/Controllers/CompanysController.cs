@@ -87,14 +87,14 @@ namespace WebApi.Controllers
             {
                 var companiesEntity = _repositoryManager.Company.FindMultipleCompanies(id, trackChanges: false);
 
+                var companiesToReturn = _mapper.Map<IEnumerable<CompanyDTO>>(companiesEntity);
+
                 if (id.Count() != companiesEntity.Count())
                 {
                     _logImplementations.DebugMessage("Some of the IDs provided by the client is not found in the database");
 
-                    return NotFound();
+                    return Ok(companiesToReturn);
                 }
-
-                var companiesToReturn = _mapper.Map<IEnumerable<CompanyDTO>>(companiesEntity);
 
                 return Ok(companiesToReturn);
             }
