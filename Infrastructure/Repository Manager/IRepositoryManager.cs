@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Infrastructure.Repository_Manager
 {
@@ -11,6 +12,6 @@ namespace Infrastructure.Repository_Manager
 
         IEmployeeRepository Employee { get; }
 
-        void Save();
+        Task SaveAsync();
     }
 }

@@ -4,6 +4,7 @@ using Infrastructure.Database_Context;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Infrastructure.Repository_Manager
 {
@@ -13,7 +14,7 @@ namespace Infrastructure.Repository_Manager
 
         private CompanyRepository companyRepository;
 
-        private InfrastructureDbContext _dbContext;
+        private readonly InfrastructureDbContext _dbContext;
 
         public RepositoryManager(InfrastructureDbContext dbContext)
         {
@@ -46,9 +47,9 @@ namespace Infrastructure.Repository_Manager
             }
         }
 
-        public void Save()
+        public Task SaveAsync()
         {
-            _dbContext.SaveChanges();
+           return _dbContext.SaveChangesAsync();
         }
     }
 }

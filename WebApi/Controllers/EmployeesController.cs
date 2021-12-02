@@ -43,11 +43,11 @@ namespace WebApi.Controllers
 
         // GET: api/<EmployeesController>
         [HttpGet]
-        public IActionResult GetEmployees(Guid companyId)
+        public async Task<IActionResult> GetEmployees(Guid companyId)
         {
             //Check if Company exists
 
-            var company = _repositoryManager.Company.FindCompany(companyId, trackChanges: false);
+            var company = await _repositoryManager.Company.FindCompany(companyId, trackChanges: false);
 
             //If company exists proceed
             
@@ -59,7 +59,7 @@ namespace WebApi.Controllers
             }
             else
             {
-                var employees = _repositoryManager.Employee.GetAllEmployeesOfACompany(companyId, trackChanges: false);
+                var employees = await _repositoryManager.Employee.GetAllEmployeesOfACompany(companyId, trackChanges: false);
 
                 var employeeDTO = _mapper.Map<IEnumerable<EmployeeDTO>>(employees);
 
@@ -69,9 +69,9 @@ namespace WebApi.Controllers
 
         // GET api/<EmployeesController>/5
         [HttpGet("{id}", Name = "GetAnEmployeeFromACompany")]
-        public IActionResult GetAnEmployeeFromACompany(Guid companyId, Guid id)
+        public async Task<IActionResult> GetAnEmployeeFromACompany(Guid companyId, Guid id)
         {
-            var company = _repositoryManager.Company.FindCompany(companyId, trackChanges: false);
+            var company = await _repositoryManager.Company.FindCompany(companyId, trackChanges: false);
 
             if(company == null)
             {
@@ -81,7 +81,7 @@ namespace WebApi.Controllers
             }
             else
             {
-                var employee = _repositoryManager.Employee.GetAnEmployeeFromACompany(companyId, id, trackChanges: false);
+                var employee = await _repositoryManager.Employee.GetAnEmployeeFromACompany(companyId, id, trackChanges: false);
 
                 if (employee == null)
                 {
@@ -100,9 +100,9 @@ namespace WebApi.Controllers
 
         // POST api/<EmployeesController>
         [HttpPost]
-        public IActionResult CreateEmployee(Guid companyId, [FromBody] EmployeeInputDTO employee)
+        public async Task<IActionResult> CreateEmployee(Guid companyId, [FromBody] EmployeeInputDTO employee)
         {
-            var employeesCompany = _repositoryManager.Company.FindCompany(companyId, trackChanges: false);
+            var employeesCompany = await _repositoryManager.Company.FindCompany(companyId, trackChanges: false);
 
             if(employeesCompany == null)
             {
@@ -120,26 +120,37 @@ namespace WebApi.Controllers
                 }
                 else
                 {
-                    var employeeToPost = _mapper.Map<Employee>(employee);
+                    if (!ModelState.IsValid)
+                    {
+                        _logImplementations.ErrorMessage("The model state of the employee object posted is not valid");
 
-                    _repositoryManager.Employee.CreateEmployee(companyId, employeeToPost);
+                        ModelState.AddModelError("age", "The age value is not valid.");
 
-                    _repositoryManager.Save();
+                        return UnprocessableEntity(ModelState);
+                    }
+                    else
+                    {
+                        var employeeToPost = _mapper.Map<Employee>(employee);
 
-                    var employeeToReturn = _mapper.Map<EmployeeDTO>(employeeToPost);
+                        _repositoryManager.Employee.CreateEmployee(companyId, employeeToPost);
 
-                    //return CreatedAtRoute("GetAnEmployeeFromACompany", new { id = employeeToReturn.Id }, employeeToReturn);
+                        await _repositoryManager.SaveAsync();
 
-                    return Ok(employeeToReturn);
+                        var employeeToReturn = _mapper.Map<EmployeeDTO>(employeeToPost);
+
+                        //return CreatedAtRoute("GetAnEmployeeFromACompany", new { id = employeeToReturn.Id }, employeeToReturn);
+
+                        return Ok(employeeToReturn);
+                    }
                 }
             }
         }
 
         // PUT api/<EmployeesController>/5
         [HttpPut("{id}")]
-        public IActionResult Put(Guid companyId, Guid id, [FromBody] EmployeeUpdateDTO employeeUpdateDTO)
+        public async Task<IActionResult> Put(Guid companyId, Guid id, [FromBody] EmployeeUpdateDTO employeeUpdateDTO)
         {
-            var company = _repositoryManager.Company.FindCompany(companyId, trackChanges: false);
+            var company = await _repositoryManager.Company.FindCompany(companyId, trackChanges: false);
 
             if(company == null)
             {
@@ -149,7 +160,7 @@ namespace WebApi.Controllers
             }
             else
             {
-                var employeeEntity = _repositoryManager.Employee.GetAnEmployeeFromACompany(companyId, id, trackChanges: true);
+                var employeeEntity = await _repositoryManager.Employee.GetAnEmployeeFromACompany(companyId, id, trackChanges: true);
 
                 if(employeeEntity == null)
                 {
@@ -159,22 +170,31 @@ namespace WebApi.Controllers
                 }
                 else
                 {
-                    var result = _mapper.Map(employeeUpdateDTO, employeeEntity);
+                    if (!ModelState.IsValid)
+                    {
+                        _logImplementations.ErrorMessage("Model state of new object is not valid");
 
-                    _repositoryManager.Save();
+                        return UnprocessableEntity(ModelState);
+                    }
+                    else
+                    {
+                        var result = _mapper.Map(employeeUpdateDTO, employeeEntity);
 
-                    var valueToReturn = _mapper.Map<EmployeeDTO>(result);
+                       await  _repositoryManager.SaveAsync();
 
-                    return Ok(valueToReturn);
+                        var valueToReturn = _mapper.Map<EmployeeDTO>(result);
+
+                        return Ok(valueToReturn);
+                    }
                 }
             }
         }
 
         // DELETE api/<EmployeesController>/5
         [HttpDelete("{id}")]
-        public IActionResult Delete(Guid companyId, Guid id)
+        public async Task<IActionResult> Delete(Guid companyId, Guid id)
         {
-            var company = _repositoryManager.Company.FindCompany(companyId, trackChanges: false);
+            var company = await _repositoryManager.Company.FindCompany(companyId, trackChanges: false);
 
             if (company == null)
             {
@@ -184,18 +204,18 @@ namespace WebApi.Controllers
             }
             else
             {
-                var employeeForCompany = _repositoryManager.Employee.GetAnEmployeeFromACompany(companyId, id, trackChanges: false);
+                var employeeForCompany = await _repositoryManager.Employee.GetAnEmployeeFromACompany(companyId, id, trackChanges: false);
 
                 _repositoryManager.Employee.DeleteEmployee(employeeForCompany);
 
-                _repositoryManager.Save();
+                await _repositoryManager.SaveAsync();
 
                 return NoContent();
             }
         }
 
         [HttpPatch("{id}")]
-        public IActionResult PatchEmployeeData(Guid companyId, Guid id, [FromBody] JsonPatchDocument<EmployeeUpdateDTO> employeePatchObject)
+        public async Task<IActionResult> PatchEmployeeData(Guid companyId, Guid id, [FromBody] JsonPatchDocument<EmployeeUpdateDTO> employeePatchObject)
         {
             if(employeePatchObject == null)
             {
@@ -205,7 +225,7 @@ namespace WebApi.Controllers
             }
             else
             {
-                var company = _repositoryManager.Company.FindCompany(companyId, trackChanges: false);
+                var company = await _repositoryManager.Company.FindCompany(companyId, trackChanges: false);
 
                 if (company == null)
                 {
@@ -215,7 +235,7 @@ namespace WebApi.Controllers
                 }
                 else
                 {
-                    var employee = _repositoryManager.Employee.GetAnEmployeeFromACompany(companyId, id, trackChanges: true);
+                    var employee = await _repositoryManager.Employee.GetAnEmployeeFromACompany(companyId, id, trackChanges: true);
 
                     if (employee == null)
                     {
@@ -231,13 +251,13 @@ namespace WebApi.Controllers
 
                         if (!TryValidateModel(objectToPatch))
                         {
-                            return ValidationProblem(ModelState);
+                            return UnprocessableEntity(ModelState);
                         }
                         else
                         {
                             _mapper.Map(objectToPatch, employee);
 
-                            _repositoryManager.Save();
+                            await _repositoryManager.SaveAsync();
 
                             return NoContent();
                         }
@@ -248,9 +268,9 @@ namespace WebApi.Controllers
 
         [Route("creatmultipleemployeesforacompany")]
         [HttpPost]
-        public IActionResult CreateMultipleEmployeesForACompany(Guid companyId, [FromBody] IEnumerable<EmployeeInputDTO> employeeInputDTOs)
+        public async Task<IActionResult> CreateMultipleEmployeesForACompany(Guid companyId, [FromBody] IEnumerable<EmployeeInputDTO> employeeInputDTOs)
         {
-            var company = _repositoryManager.Company.FindCompany(companyId, trackChanges: false);
+            var company = await _repositoryManager.Company.FindCompany(companyId, trackChanges: false);
 
             if (company == null)
             {
@@ -268,24 +288,35 @@ namespace WebApi.Controllers
                 }
                 else
                 {
-                    var employeeToCreate = _mapper.Map<IEnumerable<Employee>>(employeeInputDTOs);
+                    if (!ModelState.IsValid)
+                    {
+                        _logImplementations.ErrorMessage("The model state of employee objects posted is invalid");
 
-                    _repositoryManager.Employee.CreateMultipleEmployee(companyId, employeeToCreate);
+                        ModelState.AddModelError("age", "The age value is not valid.");
 
-                    _repositoryManager.Save();
+                        return UnprocessableEntity(ModelState);
+                    }
+                    else
+                    {
+                        var employeeToCreate = _mapper.Map<IEnumerable<Employee>>(employeeInputDTOs);
 
-                    var objectToReturn = _mapper.Map<IEnumerable<EmployeeDTO>>(employeeToCreate);
+                        _repositoryManager.Employee.CreateMultipleEmployee(companyId, employeeToCreate);
 
-                    return Ok(objectToReturn);
+                        await _repositoryManager.SaveAsync();
+
+                        var objectToReturn = _mapper.Map<IEnumerable<EmployeeDTO>>(employeeToCreate);
+
+                        return Ok(objectToReturn);
+                    }
                 }
             }
         }
 
         [Route("getmultipleemployeesfromacompanybyid")]
         [HttpPost]
-        public IActionResult GetMultipleEmployeesFromCompanyById(Guid companyId, [FromBody] IEnumerable<Guid> employeesId)
+        public async Task<IActionResult> GetMultipleEmployeesFromCompanyById(Guid companyId, [FromBody] IEnumerable<Guid> employeesId)
         {
-            var company = _repositoryManager.Company.FindCompany(companyId, trackChanges: false);
+            var company = await _repositoryManager.Company.FindCompany(companyId, trackChanges: false);
 
             if(company == null)
             {
@@ -295,7 +326,7 @@ namespace WebApi.Controllers
             }
             else
             {
-                var employeeEntity = _repositoryManager.Employee.GetMultipleEmployeesById(companyId, employeesId, trackChanges: false);
+                var employeeEntity = await _repositoryManager.Employee.GetMultipleEmployeesById(companyId, employeesId, trackChanges: false);
 
                 var employeesToReturn = _mapper.Map<IEnumerable<EmployeeDTO>>(employeeEntity);
 

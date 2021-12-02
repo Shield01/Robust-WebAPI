@@ -2,10 +2,12 @@
 using Infrastructure.Abstractions;
 using Infrastructure.Data_Transfer_Objects;
 using Infrastructure.Database_Context;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Infrastructure.Concrete_Implementations
 {
@@ -46,26 +48,23 @@ namespace Infrastructure.Concrete_Implementations
             Delete(employee);
         }
 
-        public IEnumerable<Employee> GetAllEmployeesOfACompany(Guid companyId, bool trackChanges)
-        {
-            var value = FindByCondition(e => e.CompanyId
-            .Equals(companyId), trackChanges).OrderBy(c => c.Name);
+        public async Task<IEnumerable<Employee>> GetAllEmployeesOfACompany(Guid companyId, bool trackChanges) => await FindByCondition(e => e.CompanyId
+            .Equals(companyId), trackChanges)
+            .OrderBy(c => c.Name)
+            .ToListAsync();
 
-            return value;
+        public async Task<Employee> GetAnEmployeeFromACompany(Guid companyId, Guid employeeId, bool trackChanges)
+        {
+            var employee = FindByCondition(e => e.CompanyId.Equals(companyId) && e.Id.Equals(employeeId), trackChanges).SingleOrDefaultAsync();
+
+            return await employee;
         }
 
-        public Employee GetAnEmployeeFromACompany(Guid companyId, Guid employeeId, bool trackChanges)
+        public async Task<IEnumerable<Employee>> GetMultipleEmployeesById(Guid companyId, IEnumerable<Guid> employeeIds, bool trackChanges)
         {
-            var employee = FindByCondition(e => e.CompanyId.Equals(companyId) && e.Id.Equals(employeeId), trackChanges).SingleOrDefault();
+            var value = FindByCondition(e => employeeIds.Contains(e.Id), trackChanges).ToListAsync();
 
-            return employee;
-        }
-
-        public IEnumerable<Employee> GetMultipleEmployeesById(Guid companyId, IEnumerable<Guid> employeeIds, bool trackChanges)
-        {
-            var value = FindByCondition(e => employeeIds.Contains(e.Id), trackChanges).ToList();
-
-            return value;
+            return await value;
         }
     }
 }

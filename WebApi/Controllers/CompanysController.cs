@@ -43,9 +43,9 @@ namespace WebApi.Controllers
 
         // GET: api/<CompanysController>
         [HttpGet]
-        public IActionResult GetAllCompanies()
+        public async Task<IActionResult> GetAllCompanies()
         {
-            var companies = _repositoryManager.Company.FindAllCompanies(true);
+            var companies = await _repositoryManager.Company.FindAllCompanies(true);
 
             var value = _mapper.Map<IEnumerable<CompanyDTO>>(companies);
 
@@ -54,9 +54,9 @@ namespace WebApi.Controllers
 
         // GET api/<CompanysController>/5
         [HttpGet("{id}", Name = "GetCompanyById")]
-        public IActionResult GetCompany(Guid id)
+        public async Task<IActionResult> GetCompany(Guid id)
         {
-            var companyFromDatabase = _repositoryManager.Company.FindCompany(id, trackChanges: false);
+            var companyFromDatabase = await _repositoryManager.Company.FindCompany(id, trackChanges: false);
 
             if (companyFromDatabase == null)
             {
@@ -75,7 +75,7 @@ namespace WebApi.Controllers
 
         [Route("getmultiplecompaniesbyid")]
         [HttpPost]
-        public IActionResult GetCompaniesById([FromBody] IEnumerable<Guid> id)
+        public async Task<IActionResult> GetCompaniesById([FromBody] IEnumerable<Guid> id)
         {
             if (id == null)
             {
@@ -85,7 +85,7 @@ namespace WebApi.Controllers
             }
             else
             {
-                var companiesEntity = _repositoryManager.Company.FindMultipleCompanies(id, trackChanges: false);
+                var companiesEntity = await _repositoryManager.Company.FindMultipleCompanies(id, trackChanges: false);
 
                 var companiesToReturn = _mapper.Map<IEnumerable<CompanyDTO>>(companiesEntity);
 
@@ -103,7 +103,7 @@ namespace WebApi.Controllers
 
         // POST api/<CompanysController>
         [HttpPost]
-        public IActionResult CreateCompany([FromBody] CompanyInputDTO company)
+        public async Task<IActionResult> CreateCompany([FromBody] CompanyInputDTO company)
         {
             if (company == null)
             {
@@ -111,11 +111,18 @@ namespace WebApi.Controllers
 
                 return BadRequest();
             }
+
+            if (!ModelState.IsValid)
+            {
+                _logImplementations.ErrorMessage("The model state of the company object passed is not valid");
+
+                return UnprocessableEntity(ModelState);
+            }
                 var valueToPost = _mapper.Map<Company>(company);
 
                 _repositoryManager.Company.CreateCompany(valueToPost);
 
-                _repositoryManager.Save();
+                await _repositoryManager.SaveAsync();
 
                 var valueToReturn = _mapper.Map<CompanyDTO>(valueToPost);
 
@@ -124,7 +131,7 @@ namespace WebApi.Controllers
 
         [Route("createmultiplecompanies")]
         [HttpPost]
-        public IActionResult CreateMultipleCompanies([FromBody] IEnumerable<CompanyInputDTO> companies)
+        public async Task<IActionResult> CreateMultipleCompanies([FromBody] IEnumerable<CompanyInputDTO> companies)
         {
             if (companies == null)
             {
@@ -134,23 +141,32 @@ namespace WebApi.Controllers
             }
             else
             {
-                var companiesToPost = _mapper.Map<IEnumerable<Company>>(companies);
+                if (!ModelState.IsValid)
+                {
+                    _logImplementations.ErrorMessage("The model state of company objects posted is invalid");
 
-                _repositoryManager.Company.CreateMultipleCompanies(companiesToPost);
+                    return UnprocessableEntity(ModelState);
+                }
+                else
+                {
+                    var companiesToPost = _mapper.Map<IEnumerable<Company>>(companies);
 
-                _repositoryManager.Save();
+                    _repositoryManager.Company.CreateMultipleCompanies(companiesToPost);
 
-                var companiesToReturn = _mapper.Map<IEnumerable<CompanyDTO>>(companiesToPost);
+                    await _repositoryManager.SaveAsync();
 
-                var ids = string.Join(",", companiesToReturn.Select(c => c.Id));
+                    var companiesToReturn = _mapper.Map<IEnumerable<CompanyDTO>>(companiesToPost);
 
-                return Ok(companiesToReturn);
+                    var ids = string.Join(",", companiesToReturn.Select(c => c.Id));
+
+                    return Ok(companiesToReturn);
+                }
             }
         }
 
         // PUT api/<CompanysController>/5
         [HttpPut("{id}")]
-        public IActionResult Put(Guid id, [FromBody] CompanyUpdateDTO companyUpdateDTO)
+        public async Task<IActionResult> Put(Guid id, [FromBody] CompanyUpdateDTO companyUpdateDTO)
         {
             if(companyUpdateDTO == null)
             {
@@ -160,7 +176,7 @@ namespace WebApi.Controllers
             }
             else
             {
-                var companyEntity = _repositoryManager.Company.FindCompany(id, trackChanges: true);
+                var companyEntity = await _repositoryManager.Company.FindCompany(id, trackChanges: true);
 
                 if(companyEntity == null)
                 {
@@ -170,22 +186,31 @@ namespace WebApi.Controllers
                 }
                 else
                 {
-                   var newObject =  _mapper.Map(companyUpdateDTO, companyEntity);
+                    if (!ModelState.IsValid)
+                    {
+                        _logImplementations.ErrorMessage("Model state of new object is not valid");
 
-                    _repositoryManager.Save();
+                        return UnprocessableEntity(ModelState);
+                    }
+                    else
+                    {
+                        var newObject = _mapper.Map(companyUpdateDTO, companyEntity);
 
-                    var valueToReturn = _mapper.Map<CompanyDTO>(newObject);
+                        await _repositoryManager.SaveAsync();
 
-                    return Ok(valueToReturn);
+                        var valueToReturn = _mapper.Map<CompanyDTO>(newObject);
+
+                        return Ok(valueToReturn);
+                    }
                 }
             }
         }
 
         // DELETE api/<CompanysController>/5
         [HttpDelete("{id}")]
-        public IActionResult Delete(Guid id)
+        public async Task<IActionResult> Delete(Guid id)
         {
-            var company = _repositoryManager.Company.FindCompany(id, trackChanges: false);
+            var company = await _repositoryManager.Company.FindCompany(id, trackChanges: false);
 
             if (company == null)
             {
@@ -197,7 +222,7 @@ namespace WebApi.Controllers
             {
                 _repositoryManager.Company.DeleteCompany(company);
 
-                _repositoryManager.Save();
+               await  _repositoryManager.SaveAsync();
 
                 return NoContent();
             }
@@ -205,9 +230,9 @@ namespace WebApi.Controllers
 
 
         [HttpPatch("{id}")]
-        public IActionResult PatchACompanysRecord(Guid id, [FromBody] JsonPatchDocument<CompanyUpdateDTO> companyUpdateDTO)
+        public async Task<IActionResult> PatchACompanysRecord(Guid id, [FromBody] JsonPatchDocument<CompanyUpdateDTO> companyUpdateDTO)
         {
-            var company = _repositoryManager.Company.FindCompany(id, trackChanges: true);
+            var company = await _repositoryManager.Company.FindCompany(id, trackChanges: true);
 
             if(company == null)
             {
@@ -237,7 +262,7 @@ namespace WebApi.Controllers
                     {
                         _mapper.Map(objectToPatch, company);
 
-                        _repositoryManager.Save();
+                        await _repositoryManager.SaveAsync();
 
                         return NoContent();
                     }

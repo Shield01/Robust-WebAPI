@@ -2,20 +2,21 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Infrastructure.Abstractions
 {
     public interface ICompanyRepository
     {
-        IEnumerable<Company> FindAllCompanies(bool trackChanges);
+        Task<IEnumerable<Company>> FindAllCompanies(bool trackChanges);
 
-        Company FindCompany(Guid id, bool trackChanges);
+        Task<Company> FindCompany(Guid id, bool trackChanges);
 
         void CreateCompany(Company company);
 
         void CreateMultipleCompanies(IEnumerable<Company> companies);
 
-        IEnumerable<Company> FindMultipleCompanies(IEnumerable<Guid> guids, bool trackChanges);
+        Task<IEnumerable<Company>> FindMultipleCompanies(IEnumerable<Guid> guids, bool trackChanges);
 
         void DeleteCompany(Company company);
     }

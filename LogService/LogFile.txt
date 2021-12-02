@@ -731,3 +731,7 @@ System.Collections.Generic.List`1[[Infrastructure.Data_Transfer_Objects.Employee
    at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
    at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
    at Microsoft.AspNetCore.Diagnostics.ExceptionHandlerMiddleware.<Invoke>g__Awaited|6_0(ExceptionHandlerMiddleware middleware, HttpContext context, Task task)
+2021-12-02 22:32:47.6720 INFO The company with the id a3b11a85-63ce-4751-8741-bd7c1b836cba can't be found in the database.
+2021-12-02 22:46:35.4842 ERROR The model state of the company object passed is not valid
+2021-12-02 22:46:58.8269 ERROR The model state of the company object passed is not valid
+2021-12-02 22:49:15.0464 ERROR The model state of the company object passed is not valid

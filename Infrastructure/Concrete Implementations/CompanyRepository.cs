@@ -1,10 +1,12 @@
 ﻿using Core.Models;
 using Infrastructure.Abstractions;
 using Infrastructure.Database_Context;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Infrastructure.Concrete_Implementations
 {
@@ -41,20 +43,23 @@ namespace Infrastructure.Concrete_Implementations
             Delete(company);
         }
 
-        public IEnumerable<Company> FindAllCompanies(bool trackChanges) => FindAll(trackChanges).OrderBy(c => c.Name).ToList();
+        public async Task<IEnumerable<Company>> FindAllCompanies(bool trackChanges) => 
+            await FindAll(trackChanges)
+            .OrderBy(c => c.Name)
+            .ToListAsync();
 
-        public Company FindCompany(Guid id, bool trackChanges)
+        public async Task<Company> FindCompany(Guid id, bool trackChanges)
         {
-            var value = FindByCondition(c => c.Id.Equals(id), trackChanges).SingleOrDefault();
+            var value = FindByCondition(c => c.Id.Equals(id), trackChanges).SingleOrDefaultAsync();
 
-            return value;
+            return await value;
         }
 
-        public IEnumerable<Company> FindMultipleCompanies(IEnumerable<Guid> guids, bool trackChanges)
+        public async Task<IEnumerable<Company>> FindMultipleCompanies(IEnumerable<Guid> guids, bool trackChanges)
         {
-            var value = FindByCondition(e => guids.Contains(e.Id), trackChanges).ToList();
+            var value = FindByCondition(e => guids.Contains(e.Id), trackChanges).ToListAsync();
 
-            return value;
+            return await value;
         }
     }
 }
