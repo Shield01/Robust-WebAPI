@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using WebApi.Action_Filters;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -69,152 +70,71 @@ namespace WebApi.Controllers
 
         // GET api/<EmployeesController>/5
         [HttpGet("{id}", Name = "GetAnEmployeeFromACompany")]
-        public async Task<IActionResult> GetAnEmployeeFromACompany(Guid companyId, Guid id)
+        [ServiceFilter(typeof(ValidateCompanyExistForEmployeeController))]
+        public IActionResult GetAnEmployeeFromACompany(Guid companyId, Guid id)
         {
-            var company = await _repositoryManager.Company.FindCompany(companyId, trackChanges: false);
+            var employee = HttpContext.Items["employee"] as Employee;
 
-            if(company == null)
-            {
-                _logImplementations.ErrorMessage("The company Id provided does not exist in the database");
+            var employeeToReturn = _mapper.Map<EmployeeDTO>(employee);
 
-                return NotFound("Company not found");
-            }
-            else
-            {
-                var employee = await _repositoryManager.Employee.GetAnEmployeeFromACompany(companyId, id, trackChanges: false);
-
-                if (employee == null)
-                {
-                    _logImplementations.ErrorMessage("The employee Id provided does not exist in the database");
-
-                    return NotFound("Employee not found");
-                }
-                else
-                {
-                    var employeeToReturn = _mapper.Map<EmployeeDTO>(employee);
-
-                    return Ok(employeeToReturn);
-                }
-            }
+            return Ok(employeeToReturn);
         }
 
         // POST api/<EmployeesController>
         [HttpPost]
+        [ServiceFilter(typeof(ValidationFilterAttributes))]
         public async Task<IActionResult> CreateEmployee(Guid companyId, [FromBody] EmployeeInputDTO employee)
         {
             var employeesCompany = await _repositoryManager.Company.FindCompany(companyId, trackChanges: false);
 
-            if(employeesCompany == null)
-            {
-                _logImplementations.ErrorMessage("The Company Id provided does not exist in the database");
+            
+            var employeeToPost = _mapper.Map<Employee>(employee);
 
-                return NotFound("Company not found");
-            }
-            else
-            {
-                if (employee == null)
-                {
-                    _logImplementations.ErrorMessage("The Employee object posted by client is null");
+            _repositoryManager.Employee.CreateEmployee(companyId, employeeToPost);
 
-                    return BadRequest("Input a valid employee object");
-                }
-                else
-                {
-                    if (!ModelState.IsValid)
-                    {
-                        _logImplementations.ErrorMessage("The model state of the employee object posted is not valid");
+            await _repositoryManager.SaveAsync();
 
-                        ModelState.AddModelError("age", "The age value is not valid.");
+            var employeeToReturn = _mapper.Map<EmployeeDTO>(employeeToPost);
 
-                        return UnprocessableEntity(ModelState);
-                    }
-                    else
-                    {
-                        var employeeToPost = _mapper.Map<Employee>(employee);
+            //return CreatedAtRoute("GetAnEmployeeFromACompany", new { id = employeeToReturn.Id }, employeeToReturn);
 
-                        _repositoryManager.Employee.CreateEmployee(companyId, employeeToPost);
-
-                        await _repositoryManager.SaveAsync();
-
-                        var employeeToReturn = _mapper.Map<EmployeeDTO>(employeeToPost);
-
-                        //return CreatedAtRoute("GetAnEmployeeFromACompany", new { id = employeeToReturn.Id }, employeeToReturn);
-
-                        return Ok(employeeToReturn);
-                    }
-                }
-            }
+            return Ok(employeeToReturn);
         }
 
         // PUT api/<EmployeesController>/5
         [HttpPut("{id}")]
+        [ServiceFilter(typeof(ValidationFilterAttributes))]
         public async Task<IActionResult> Put(Guid companyId, Guid id, [FromBody] EmployeeUpdateDTO employeeUpdateDTO)
         {
             var company = await _repositoryManager.Company.FindCompany(companyId, trackChanges: false);
 
-            if(company == null)
-            {
-                _logImplementations.ErrorMessage($"Company with id, {companyId}, does not exist in the database");
+            var employeeEntity = await _repositoryManager.Employee.GetAnEmployeeFromACompany(companyId, id, trackChanges: true);
 
-                return BadRequest("Company does not exist in the database");
-            }
-            else
-            {
-                var employeeEntity = await _repositoryManager.Employee.GetAnEmployeeFromACompany(companyId, id, trackChanges: true);
+            var result = _mapper.Map(employeeUpdateDTO, employeeEntity);
 
-                if(employeeEntity == null)
-                {
-                    _logImplementations.InfoMessage($"Employe with id : {id}, does not exist in the database");
+            await _repositoryManager.SaveAsync();
 
-                    return NotFound("Employee not found in the database");
-                }
-                else
-                {
-                    if (!ModelState.IsValid)
-                    {
-                        _logImplementations.ErrorMessage("Model state of new object is not valid");
+            var valueToReturn = _mapper.Map<EmployeeDTO>(result);
 
-                        return UnprocessableEntity(ModelState);
-                    }
-                    else
-                    {
-                        var result = _mapper.Map(employeeUpdateDTO, employeeEntity);
-
-                       await  _repositoryManager.SaveAsync();
-
-                        var valueToReturn = _mapper.Map<EmployeeDTO>(result);
-
-                        return Ok(valueToReturn);
-                    }
-                }
-            }
+            return Ok(valueToReturn);
         }
 
         // DELETE api/<EmployeesController>/5
         [HttpDelete("{id}")]
+        [ServiceFilter(typeof(ValidateCompanyExistForEmployeeController))]
         public async Task<IActionResult> Delete(Guid companyId, Guid id)
         {
-            var company = await _repositoryManager.Company.FindCompany(companyId, trackChanges: false);
+            var employeeForCompany = HttpContext.Items["employee"] as Employee;
 
-            if (company == null)
-            {
-                _logImplementations.ErrorMessage($"Company with id {companyId} does not exist in the database");
+            _repositoryManager.Employee.DeleteEmployee(employeeForCompany);
 
-                return BadRequest("Company Id does not exist");
-            }
-            else
-            {
-                var employeeForCompany = await _repositoryManager.Employee.GetAnEmployeeFromACompany(companyId, id, trackChanges: false);
+            await _repositoryManager.SaveAsync();
 
-                _repositoryManager.Employee.DeleteEmployee(employeeForCompany);
-
-                await _repositoryManager.SaveAsync();
-
-                return NoContent();
-            }
+            return NoContent();
         }
 
         [HttpPatch("{id}")]
+        [ServiceFilter(typeof(ValidateCompanyExistForEmployeeController))]
         public async Task<IActionResult> PatchEmployeeData(Guid companyId, Guid id, [FromBody] JsonPatchDocument<EmployeeUpdateDTO> employeePatchObject)
         {
             if(employeePatchObject == null)
@@ -223,93 +143,44 @@ namespace WebApi.Controllers
 
                 return BadRequest("Input a valid Patch object");
             }
+
+            var employee = HttpContext.Items["employee"] as Employee;
+
+
+            var objectToPatch = _mapper.Map<EmployeeUpdateDTO>(employee);
+
+            employeePatchObject.ApplyTo(objectToPatch, ModelState);
+
+            if (!TryValidateModel(objectToPatch))
+            {
+                return UnprocessableEntity(ModelState);
+            }
             else
             {
-                var company = await _repositoryManager.Company.FindCompany(companyId, trackChanges: false);
+                _mapper.Map(objectToPatch, employee);
 
-                if (company == null)
-                {
-                    _logImplementations.ErrorMessage($"The company with id: {companyId}, does not exist");
+                await _repositoryManager.SaveAsync();
 
-                    return NotFound($"The company with {id}, does not exist in the database");
-                }
-                else
-                {
-                    var employee = await _repositoryManager.Employee.GetAnEmployeeFromACompany(companyId, id, trackChanges: true);
-
-                    if (employee == null)
-                    {
-                        _logImplementations.InfoMessage($"Employee with the id: {id}, does not exist in the database");
-
-                        return NotFound("Employee not found");
-                    }
-                    else
-                    {
-                        var objectToPatch = _mapper.Map<EmployeeUpdateDTO>(employee);
-
-                        employeePatchObject.ApplyTo(objectToPatch, ModelState);
-
-                        if (!TryValidateModel(objectToPatch))
-                        {
-                            return UnprocessableEntity(ModelState);
-                        }
-                        else
-                        {
-                            _mapper.Map(objectToPatch, employee);
-
-                            await _repositoryManager.SaveAsync();
-
-                            return NoContent();
-                        }
-                    }
-                }
+                return NoContent();
             }
         }
 
         [Route("creatmultipleemployeesforacompany")]
         [HttpPost]
+        [ServiceFilter(typeof(ValidationFilterAttributes))]
         public async Task<IActionResult> CreateMultipleEmployeesForACompany(Guid companyId, [FromBody] IEnumerable<EmployeeInputDTO> employeeInputDTOs)
         {
             var company = await _repositoryManager.Company.FindCompany(companyId, trackChanges: false);
 
-            if (company == null)
-            {
-                _logImplementations.ErrorMessage($"The company Id passed by the client doesn't exist on the database");
+            var employeeToCreate = _mapper.Map<IEnumerable<Employee>>(employeeInputDTOs);
 
-                return BadRequest($"The company id {companyId} doesn't exist, so who employed the employees ?");
-            }
-            else
-            {
-                if (employeeInputDTOs == null)
-                {
-                    _logImplementations.ErrorMessage($"Employee objects passed by client is null");
+            _repositoryManager.Employee.CreateMultipleEmployee(companyId, employeeToCreate);
 
-                    return BadRequest("Kindly input an employee object");
-                }
-                else
-                {
-                    if (!ModelState.IsValid)
-                    {
-                        _logImplementations.ErrorMessage("The model state of employee objects posted is invalid");
+            await _repositoryManager.SaveAsync();
 
-                        ModelState.AddModelError("age", "The age value is not valid.");
+            var objectToReturn = _mapper.Map<IEnumerable<EmployeeDTO>>(employeeToCreate);
 
-                        return UnprocessableEntity(ModelState);
-                    }
-                    else
-                    {
-                        var employeeToCreate = _mapper.Map<IEnumerable<Employee>>(employeeInputDTOs);
-
-                        _repositoryManager.Employee.CreateMultipleEmployee(companyId, employeeToCreate);
-
-                        await _repositoryManager.SaveAsync();
-
-                        var objectToReturn = _mapper.Map<IEnumerable<EmployeeDTO>>(employeeToCreate);
-
-                        return Ok(objectToReturn);
-                    }
-                }
-            }
+            return Ok(objectToReturn);
         }
 
         [Route("getmultipleemployeesfromacompanybyid")]

@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using WebApi.Action_Filters;
 using WebApi.ModelBinders;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -54,22 +55,14 @@ namespace WebApi.Controllers
 
         // GET api/<CompanysController>/5
         [HttpGet("{id}", Name = "GetCompanyById")]
-        public async Task<IActionResult> GetCompany(Guid id)
+        [ServiceFilter(typeof(ValidateCompanyExistAttribute))]
+        public IActionResult GetCompany(Guid id)
         {
-            var companyFromDatabase = await _repositoryManager.Company.FindCompany(id, trackChanges: false);
+            var companyFromDatabase = HttpContext.Items["company"] as Company;
 
-            if (companyFromDatabase == null)
-            {
-                _logImplementations.InfoMessage($"The company with the id {id} can't be found in the database.");
+            var valueToBeReturned = _mapper.Map<CompanyDTO>(companyFromDatabase);
 
-                return NotFound();
-            }
-            else
-            {
-                var valueToBeReturned = _mapper.Map<CompanyDTO>(companyFromDatabase);
-
-                return Ok(valueToBeReturned);
-            }
+            return Ok(valueToBeReturned);
         }
 
 
@@ -103,21 +96,9 @@ namespace WebApi.Controllers
 
         // POST api/<CompanysController>
         [HttpPost]
+        [ServiceFilter(typeof(ValidationFilterAttributes))]
         public async Task<IActionResult> CreateCompany([FromBody] CompanyInputDTO company)
         {
-            if (company == null)
-            {
-                _logImplementations.InfoMessage("Company object sent from client is null");
-
-                return BadRequest();
-            }
-
-            if (!ModelState.IsValid)
-            {
-                _logImplementations.ErrorMessage("The model state of the company object passed is not valid");
-
-                return UnprocessableEntity(ModelState);
-            }
                 var valueToPost = _mapper.Map<Company>(company);
 
                 _repositoryManager.Company.CreateCompany(valueToPost);
@@ -131,101 +112,57 @@ namespace WebApi.Controllers
 
         [Route("createmultiplecompanies")]
         [HttpPost]
+        [ServiceFilter(typeof(ValidationFilterAttributes))]
         public async Task<IActionResult> CreateMultipleCompanies([FromBody] IEnumerable<CompanyInputDTO> companies)
         {
-            if (companies == null)
-            {
-                _logImplementations.ErrorMessage("The companies object inputed by the client was null");
+            var companiesToPost = _mapper.Map<IEnumerable<Company>>(companies);
 
-                return BadRequest("Kindly input the details of the companies you want to create");
-            }
-            else
-            {
-                if (!ModelState.IsValid)
-                {
-                    _logImplementations.ErrorMessage("The model state of company objects posted is invalid");
+            _repositoryManager.Company.CreateMultipleCompanies(companiesToPost);
 
-                    return UnprocessableEntity(ModelState);
-                }
-                else
-                {
-                    var companiesToPost = _mapper.Map<IEnumerable<Company>>(companies);
+            await _repositoryManager.SaveAsync();
 
-                    _repositoryManager.Company.CreateMultipleCompanies(companiesToPost);
+            var companiesToReturn = _mapper.Map<IEnumerable<CompanyDTO>>(companiesToPost);
 
-                    await _repositoryManager.SaveAsync();
+            var ids = string.Join(",", companiesToReturn.Select(c => c.Id));
 
-                    var companiesToReturn = _mapper.Map<IEnumerable<CompanyDTO>>(companiesToPost);
-
-                    var ids = string.Join(",", companiesToReturn.Select(c => c.Id));
-
-                    return Ok(companiesToReturn);
-                }
-            }
+            return Ok(companiesToReturn);
         }
 
         // PUT api/<CompanysController>/5
         [HttpPut("{id}")]
+        [ServiceFilter(typeof(ValidationFilterAttributes))]
         public async Task<IActionResult> Put(Guid id, [FromBody] CompanyUpdateDTO companyUpdateDTO)
         {
-            if(companyUpdateDTO == null)
+            var companyEntity = await _repositoryManager.Company.FindCompany(id, trackChanges: true);
+
+            if (companyEntity == null)
             {
-                _logImplementations.ErrorMessage($"The company object passed by the client is null");
+                _logImplementations.InfoMessage($"The company with id, {id} does not exist in the database");
 
-                return BadRequest("Input the value of your company object");
+                return NotFound("Company not found in the database");
             }
-            else
-            {
-                var companyEntity = await _repositoryManager.Company.FindCompany(id, trackChanges: true);
 
-                if(companyEntity == null)
-                {
-                    _logImplementations.InfoMessage($"The company with id, {id} does not exist in the database");
+            var newObject = _mapper.Map(companyUpdateDTO, companyEntity);
 
-                    return NotFound("Company not found in the database");
-                }
-                else
-                {
-                    if (!ModelState.IsValid)
-                    {
-                        _logImplementations.ErrorMessage("Model state of new object is not valid");
+            await _repositoryManager.SaveAsync();
 
-                        return UnprocessableEntity(ModelState);
-                    }
-                    else
-                    {
-                        var newObject = _mapper.Map(companyUpdateDTO, companyEntity);
+            var valueToReturn = _mapper.Map<CompanyDTO>(newObject);
 
-                        await _repositoryManager.SaveAsync();
-
-                        var valueToReturn = _mapper.Map<CompanyDTO>(newObject);
-
-                        return Ok(valueToReturn);
-                    }
-                }
-            }
+             return Ok(valueToReturn);
         }
 
         // DELETE api/<CompanysController>/5
         [HttpDelete("{id}")]
+        [ServiceFilter(typeof(ValidateCompanyExistAttribute))]
         public async Task<IActionResult> Delete(Guid id)
         {
-            var company = await _repositoryManager.Company.FindCompany(id, trackChanges: false);
+            var company = HttpContext.Items["company"] as Company;
 
-            if (company == null)
-            {
-                _logImplementations.ErrorMessage($"Company with id: {id} does mot exist in the database.");
+            _repositoryManager.Company.DeleteCompany(company);
 
-                return BadRequest("Company does not exist in the database");
-            }
-            else
-            {
-                _repositoryManager.Company.DeleteCompany(company);
+            await _repositoryManager.SaveAsync();
 
-               await  _repositoryManager.SaveAsync();
-
-                return NoContent();
-            }
+            return NoContent();
         }
 
 

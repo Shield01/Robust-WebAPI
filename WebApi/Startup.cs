@@ -17,6 +17,7 @@ using WebApi.Extensions;
 using AutoMapper;
 using LogService.Abstractions;
 using BusinessLogic.Exception_Handling;
+using WebApi.Action_Filters;
 
 namespace WebApi
 {
@@ -58,6 +59,12 @@ namespace WebApi
             {
                 options.SuppressModelStateInvalidFilter = true;
             });
+
+            services.AddScoped<ValidationFilterAttributes>();
+
+            services.AddScoped<ValidateCompanyExistAttribute>();
+
+            services.AddScoped<ValidateCompanyExistForEmployeeController>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
