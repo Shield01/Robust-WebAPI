@@ -99,15 +99,15 @@ namespace WebApi.Controllers
         [ServiceFilter(typeof(ValidationFilterAttributes))]
         public async Task<IActionResult> CreateCompany([FromBody] CompanyInputDTO company)
         {
-                var valueToPost = _mapper.Map<Company>(company);
+            var valueToPost = _mapper.Map<Company>(company);
 
-                _repositoryManager.Company.CreateCompany(valueToPost);
+            _repositoryManager.Company.CreateCompany(valueToPost);
 
-                await _repositoryManager.SaveAsync();
+            await _repositoryManager.SaveAsync();
 
-                var valueToReturn = _mapper.Map<CompanyDTO>(valueToPost);
+            var valueToReturn = _mapper.Map<CompanyDTO>(valueToPost);
 
-                return CreatedAtRoute("GetCompanyById", new { id = valueToReturn.Id }, valueToReturn);
+            return CreatedAtRoute("GetCompanyById", new { id = valueToReturn.Id }, valueToReturn);
         }
 
         [Route("createmultiplecompanies")]
@@ -131,16 +131,10 @@ namespace WebApi.Controllers
         // PUT api/<CompanysController>/5
         [HttpPut("{id}")]
         [ServiceFilter(typeof(ValidationFilterAttributes))]
+        [ServiceFilter(typeof(ValidateCompanyExistAttribute))]
         public async Task<IActionResult> Put(Guid id, [FromBody] CompanyUpdateDTO companyUpdateDTO)
         {
-            var companyEntity = await _repositoryManager.Company.FindCompany(id, trackChanges: true);
-
-            if (companyEntity == null)
-            {
-                _logImplementations.InfoMessage($"The company with id, {id} does not exist in the database");
-
-                return NotFound("Company not found in the database");
-            }
+            var companyEntity = HttpContext.Items["company"] as Company;
 
             var newObject = _mapper.Map(companyUpdateDTO, companyEntity);
 

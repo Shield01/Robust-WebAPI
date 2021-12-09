@@ -936,3 +936,126 @@ System.Collections.Generic.List`1[[Infrastructure.Data_Transfer_Objects.Employee
    at Microsoft.AspNetCore.Diagnostics.ExceptionHandlerMiddleware.<Invoke>g__Awaited|6_0(ExceptionHandlerMiddleware middleware, HttpContext context, Task task)
 2021-12-08 21:31:42.6235 ERROR Company id passed by client does not exist in the database
 2021-12-08 21:33:50.0954 ERROR Company id passed by client does not exist in the database
+2021-12-09 12:04:26.6079 ERROR Something went wrong in the System.NotImplementedException: The method or operation is not implemented.
+   at WebApi.Action_Filters.ValidateCompanyExistForGetEmployeesAction.OnActionExecuted(ActionExecutedContext context) in C:\Users\CDL\OneDrive\Desktop\ZLibProjectMyWay\WebApi\Action Filters\ValidateCompanyExistForGetEmployeesAction.cs:line 26
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeNextActionFilterAsync()
+--- End of stack trace from previous location where exception was thrown ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location where exception was thrown ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|19_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|6_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Diagnostics.ExceptionHandlerMiddleware.<Invoke>g__Awaited|6_0(ExceptionHandlerMiddleware middleware, HttpContext context, Task task)
+2021-12-09 12:23:58.6873 ERROR Object sent from the client is null. Controller : Companys, Action : PatchACompanysRecord
+2021-12-09 12:31:35.2704 ERROR Object sent from the client is null. Controller : Companys, Action : Put
+2021-12-09 12:31:35.3451 ERROR Model state of the object passed by the client is not valid. Controller : Companys, Action : Put
+2021-12-09 12:31:48.6113 ERROR Object sent from the client is null. Controller : Companys, Action : Put
+2021-12-09 12:32:51.5489 ERROR Object sent from the client is null. Controller : Companys, Action : Put
+2021-12-09 12:37:08.1347 ERROR Object sent from the client is null. Controller : Companys, Action : CreateMultipleCompanies
+2021-12-09 12:40:28.3875 ERROR Object sent from the client is null. Controller : Companys, Action : Put
+2021-12-09 12:44:57.0443 ERROR Object sent from the client is null. Controller : Companys, Action : CreateCompany
+2021-12-09 12:45:42.4655 ERROR Object sent from the client is null. Controller : Companys, Action : CreateCompany
+2021-12-09 12:46:05.7225 ERROR Object sent from the client is null. Controller : Companys, Action : CreateCompany
+2021-12-09 12:47:16.7141 ERROR Object sent from the client is null. Controller : Companys, Action : CreateMultipleCompanies
+2021-12-09 12:51:35.0225 ERROR Object sent from the client is null. Controller : Companys, Action : CreateMultipleCompanies
+2021-12-09 13:36:06.5408 ERROR Object sent from the client is null. Controller : Companys, Action : CreateCompany
+2021-12-09 13:40:52.3078 ERROR Company id passed by client does not exist in the database
+2021-12-09 13:44:07.4384 ERROR Object sent from the client is null. Controller : Companys, Action : CreateCompany
+2021-12-09 13:56:35.4338 ERROR Object sent from the client is null. Controller : Companys, Action : CreateCompany
+2021-12-09 13:57:56.3974 ERROR Object sent from the client is null. Controller : Companys, Action : CreateCompany
+2021-12-09 13:59:18.8435 ERROR Object sent from the client is null. Controller : Companys, Action : CreateCompany
+2021-12-09 14:02:30.1497 ERROR Object sent from the client is null. Controller : Companys, Action : CreateCompany
+2021-12-09 14:03:55.3261 ERROR Object sent from the client is null. Controller : Companys, Action : CreateCompany
+2021-12-09 14:15:58.7072 ERROR Object sent from the client is null. Controller : Employees, Action : CreateEmployee
+2021-12-09 14:16:33.1279 ERROR Object sent from the client is null. Controller : Employees, Action : CreateEmployee
+2021-12-09 14:28:42.6141 ERROR Object sent from the client is null. Controller : Employees, Action : CreateEmployee
+2021-12-09 14:28:49.3971 ERROR Something went wrong in the System.InvalidOperationException: If an IAsyncActionFilter provides a result value by setting the Result property of ActionExecutingContext to a non-null value, then it cannot call the next filter by invoking ActionExecutionDelegate.
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAwaitedAsync>g__Throw|11_1()
+   at WebApi.Action_Filters.ValidationFilterAttributes.OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next) in C:\Users\CDL\OneDrive\Desktop\ZLibProjectMyWay\WebApi\Action Filters\ValidationFilterAttributes.cs:line 73
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location where exception was thrown ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|19_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|6_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Diagnostics.ExceptionHandlerMiddleware.<Invoke>g__Awaited|6_0(ExceptionHandlerMiddleware middleware, HttpContext context, Task task)
+2021-12-09 14:35:16.9923 ERROR Object sent from the client is null. Controller : Companys, Action : CreateCompany
+2021-12-09 14:35:17.7874 ERROR Something went wrong in the System.InvalidOperationException: If an IAsyncActionFilter provides a result value by setting the Result property of ActionExecutingContext to a non-null value, then it cannot call the next filter by invoking ActionExecutionDelegate.
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAwaitedAsync>g__Throw|11_1()
+   at WebApi.Action_Filters.ValidationFilterAttributes.OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next) in C:\Users\CDL\OneDrive\Desktop\ZLibProjectMyWay\WebApi\Action Filters\ValidationFilterAttributes.cs:line 73
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location where exception was thrown ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|19_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|6_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Diagnostics.ExceptionHandlerMiddleware.<Invoke>g__Awaited|6_0(ExceptionHandlerMiddleware middleware, HttpContext context, Task task)
+2021-12-09 23:13:05.8006 ERROR Object sent from the client is null. Controller : Companys, Action : CreateCompany
+2021-12-09 23:13:08.1863 ERROR Something went wrong in the System.InvalidOperationException: If an IAsyncActionFilter provides a result value by setting the Result property of ActionExecutingContext to a non-null value, then it cannot call the next filter by invoking ActionExecutionDelegate.
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAwaitedAsync>g__Throw|11_1()
+   at WebApi.Action_Filters.ValidationFilterAttributes.OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next) in C:\Users\CDL\OneDrive\Desktop\ZLibProjectMyWay\WebApi\Action Filters\ValidationFilterAttributes.cs:line 73
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location where exception was thrown ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|19_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|6_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Diagnostics.ExceptionHandlerMiddleware.<Invoke>g__Awaited|6_0(ExceptionHandlerMiddleware middleware, HttpContext context, Task task)
+2021-12-09 23:17:09.2224 ERROR Object sent from the client is null. Controller : Companys, Action : CreateCompany
+2021-12-09 23:24:58.4815 ERROR Object sent from the client is null. Controller : Companys, Action : CreateCompany
+2021-12-09 23:25:55.4095 ERROR Object sent from the client is null. Controller : Companys, Action : CreateCompany
+2021-12-09 23:35:00.1983 ERROR Company id passed by client does not exist in the database
+2021-12-09 23:36:40.9563 ERROR Object sent from the client is null. Controller : Companys, Action : CreateMultipleCompanies
+2021-12-09 23:38:26.9521 ERROR Object sent from the client is null. Controller : Companys, Action : CreateMultipleCompanies
+2021-12-09 23:40:41.0710 ERROR Company id passed by client does not exist in the database
+2021-12-09 23:41:17.3685 ERROR Object sent from the client is null. Controller : Companys, Action : CreateMultipleCompanies
+2021-12-10 00:00:08.2541 ERROR Model state of the object passed by the client is not valid. Controller : Employees, Action : CreateEmployee
+2021-12-10 00:16:21.2364 ERROR Something went wrong in the System.NullReferenceException: Object reference not set to an instance of an object.
+   at Microsoft.EntityFrameworkCore.Query.Internal.ParameterValueBasedSelectExpressionOptimizer.InExpressionValuesExpandingExpressionVisitor.Visit(Expression expression)
+   at Microsoft.EntityFrameworkCore.Query.SqlExpressions.SelectExpression.VisitChildren(ExpressionVisitor visitor)
+   at System.Linq.Expressions.ExpressionVisitor.VisitExtension(Expression node)
+   at System.Linq.Expressions.Expression.Accept(ExpressionVisitor visitor)
+   at Microsoft.EntityFrameworkCore.Query.Internal.ParameterValueBasedSelectExpressionOptimizer.InExpressionValuesExpandingExpressionVisitor.Visit(Expression expression)
+   at Microsoft.EntityFrameworkCore.Query.Internal.ParameterValueBasedSelectExpressionOptimizer.Optimize(SelectExpression selectExpression, IReadOnlyDictionary`2 parametersValues)
+   at Microsoft.EntityFrameworkCore.Query.Internal.RelationalCommandCache.GetRelationalCommand(IReadOnlyDictionary`2 parameters)
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(DbContext _, Boolean result, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at Infrastructure.Concrete_Implementations.EmployeeRepository.GetMultipleEmployeesById(Guid companyId, IEnumerable`1 employeeIds, Boolean trackChanges) in C:\Users\CDL\OneDrive\Desktop\ZLibProjectMyWay\Infrastructure\Concrete Implementations\EmployeeRepository.cs:line 67
+   at WebApi.Controllers.EmployeesController.GetMultipleEmployeesFromCompanyById(Guid companyId, IEnumerable`1 employeesId) in C:\Users\CDL\OneDrive\Desktop\ZLibProjectMyWay\WebApi\Controllers\EmployeesController.cs:line 181
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location where exception was thrown ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|19_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|6_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Diagnostics.ExceptionHandlerMiddleware.<Invoke>g__Awaited|6_0(ExceptionHandlerMiddleware middleware, HttpContext context, Task task)

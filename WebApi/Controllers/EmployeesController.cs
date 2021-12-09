@@ -44,28 +44,16 @@ namespace WebApi.Controllers
 
         // GET: api/<EmployeesController>
         [HttpGet]
+        [ServiceFilter(typeof(ValidateCompanyExistForGetEmployeesAction))]
         public async Task<IActionResult> GetEmployees(Guid companyId)
         {
-            //Check if Company exists
+            var company = HttpContext.Items["company"] as Company;
 
-            var company = await _repositoryManager.Company.FindCompany(companyId, trackChanges: false);
+            var employees = await _repositoryManager.Employee.GetAllEmployeesOfACompany(companyId, trackChanges: false);
 
-            //If company exists proceed
-            
-            if(company == null)
-            {
-                _logImplementations.InfoMessage($"Company with id {companyId} does not exist");
+            var employeeDTO = _mapper.Map<IEnumerable<EmployeeDTO>>(employees);
 
-                return NotFound();
-            }
-            else
-            {
-                var employees = await _repositoryManager.Employee.GetAllEmployeesOfACompany(companyId, trackChanges: false);
-
-                var employeeDTO = _mapper.Map<IEnumerable<EmployeeDTO>>(employees);
-
-                return Ok(employeeDTO);
-            }
+            return Ok(employeeDTO);
         }
 
         // GET api/<EmployeesController>/5
@@ -185,33 +173,24 @@ namespace WebApi.Controllers
 
         [Route("getmultipleemployeesfromacompanybyid")]
         [HttpPost]
+        [ServiceFilter(typeof(ValidateCompanyExistForGetEmployeesAction))]
         public async Task<IActionResult> GetMultipleEmployeesFromCompanyById(Guid companyId, [FromBody] IEnumerable<Guid> employeesId)
         {
-            var company = await _repositoryManager.Company.FindCompany(companyId, trackChanges: false);
+            var company = HttpContext.Items["company"] as Company;
 
-            if(company == null)
+            IEnumerable<Employee> employeeEntity = await _repositoryManager.Employee.GetMultipleEmployeesById(companyId, employeesId, trackChanges: false);
+
+            var employeesToReturn = _mapper.Map<IEnumerable<EmployeeDTO>>(employeeEntity);
+
+            if (employeesId.Count() != employeeEntity.Count())
             {
-                _logImplementations.ErrorMessage($"Company with id: {companyId} does not exist in the database");
+                _logImplementations.InfoMessage("Not all the employee id passed exist in the database");
 
-                return BadRequest("Input a valid company id");
+                return Ok(employeesToReturn);
             }
             else
             {
-                var employeeEntity = await _repositoryManager.Employee.GetMultipleEmployeesById(companyId, employeesId, trackChanges: false);
-
-                var employeesToReturn = _mapper.Map<IEnumerable<EmployeeDTO>>(employeeEntity);
-
-                if(employeesId.Count() != employeeEntity.Count())
-                {
-                    _logImplementations.InfoMessage("Not all the employee id passed exist in the database");
-
-                    return Ok(employeesToReturn);
-                }
-                else
-                {
-                    return Ok(employeesToReturn);
-                }
-
+                return Ok(employeesToReturn);
             }
         }
     }
