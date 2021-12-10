@@ -1,4 +1,5 @@
 ﻿using Core.Models;
+using Infrastructure.Query_Features;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -8,7 +9,7 @@ namespace Infrastructure.Abstractions
 {
     public interface ICompanyRepository
     {
-        Task<IEnumerable<Company>> FindAllCompanies(bool trackChanges);
+        Task<PagedList<Company>> FindAllCompanies(CompanyParameter companyParameter, bool trackChanges);
 
         Task<Company> FindCompany(Guid id, bool trackChanges);
 

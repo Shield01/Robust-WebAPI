@@ -2,10 +2,12 @@
 using Core.Models;
 using Infrastructure.Data_Transfer_Objects;
 using Infrastructure.Database_Context;
+using Infrastructure.Query_Features;
 using Infrastructure.Repository_Manager;
 using LogService.Abstractions;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -45,11 +47,13 @@ namespace WebApi.Controllers
         // GET: api/<EmployeesController>
         [HttpGet]
         [ServiceFilter(typeof(ValidateCompanyExistForGetEmployeesAction))]
-        public async Task<IActionResult> GetEmployees(Guid companyId)
+        public async Task<IActionResult> GetEmployees(Guid companyId, [FromQuery] EmployeeParameter employeeParameter)
         {
             var company = HttpContext.Items["company"] as Company;
 
-            var employees = await _repositoryManager.Employee.GetAllEmployeesOfACompany(companyId, trackChanges: false);
+            var employees = await _repositoryManager.Employee.GetAllEmployeesOfACompany(companyId, employeeParameter,  trackChanges: false);
+
+            Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(employees.MetaData));
 
             var employeeDTO = _mapper.Map<IEnumerable<EmployeeDTO>>(employees);
 

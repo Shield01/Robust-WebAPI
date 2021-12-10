@@ -1,4 +1,5 @@
 ﻿using Core.Models;
+using Infrastructure.Query_Features;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -8,7 +9,7 @@ namespace Infrastructure.Abstractions
 {
     public interface IEmployeeRepository
     {
-        Task<IEnumerable<Employee>> GetAllEmployeesOfACompany(Guid companyId, bool trackChanges);
+        Task<PagedList<Employee>> GetAllEmployeesOfACompany(Guid companyId, EmployeeParameter employeeParameter, bool trackChanges);
 
         void CreateEmployee(Guid companyId, Employee employee);
 

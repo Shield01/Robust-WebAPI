@@ -2,10 +2,12 @@
 using Core.Models;
 using Infrastructure.Data_Transfer_Objects;
 using Infrastructure.Database_Context;
+using Infrastructure.Query_Features;
 using Infrastructure.Repository_Manager;
 using LogService.Abstractions;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -44,9 +46,11 @@ namespace WebApi.Controllers
 
         // GET: api/<CompanysController>
         [HttpGet]
-        public async Task<IActionResult> GetAllCompanies()
+        public async Task<IActionResult> GetAllCompanies([FromQuery] CompanyParameter companyParameter)
         {
-            var companies = await _repositoryManager.Company.FindAllCompanies(true);
+            var companies = await _repositoryManager.Company.FindAllCompanies(companyParameter, trackChanges : true);
+
+            Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(companies.MetaData));
 
             var value = _mapper.Map<IEnumerable<CompanyDTO>>(companies);
 

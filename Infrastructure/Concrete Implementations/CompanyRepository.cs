@@ -1,6 +1,7 @@
 ﻿using Core.Models;
 using Infrastructure.Abstractions;
 using Infrastructure.Database_Context;
+using Infrastructure.Query_Features;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -43,11 +44,19 @@ namespace Infrastructure.Concrete_Implementations
             Delete(company);
         }
 
-        public async Task<IEnumerable<Company>> FindAllCompanies(bool trackChanges) => 
-            await FindAll(trackChanges)
-            .OrderBy(c => c.Name)
-            .ToListAsync();
+        public async Task<PagedList<Company>> FindAllCompanies(CompanyParameter companyParameter, bool trackChanges)
+        {
+            var companies = await FindAll(trackChanges)
+                .OrderBy(c => c.Name)
+                .Skip((companyParameter.pageNumber - 1) * companyParameter.pageSize)
+                .Take(companyParameter.pageSize)
+                .ToListAsync();
 
+            var count = companies.ToArray().Length;
+
+            return new PagedList<Company>(companies, companyParameter.pageNumber, companyParameter.pageSize, count);
+        }
+       
         public async Task<Company> FindCompany(Guid id, bool trackChanges)
         {
             var value = FindByCondition(c => c.Id.Equals(id), trackChanges).SingleOrDefaultAsync();

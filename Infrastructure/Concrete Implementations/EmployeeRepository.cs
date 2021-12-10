@@ -2,6 +2,7 @@
 using Infrastructure.Abstractions;
 using Infrastructure.Data_Transfer_Objects;
 using Infrastructure.Database_Context;
+using Infrastructure.Query_Features;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -48,10 +49,19 @@ namespace Infrastructure.Concrete_Implementations
             Delete(employee);
         }
 
-        public async Task<IEnumerable<Employee>> GetAllEmployeesOfACompany(Guid companyId, bool trackChanges) => await FindByCondition(e => e.CompanyId
+        public async Task<PagedList<Employee>> GetAllEmployeesOfACompany(Guid companyId, EmployeeParameter employeeParameter, bool trackChanges)
+        {
+            var employees = await FindByCondition(e => e.CompanyId
             .Equals(companyId), trackChanges)
             .OrderBy(c => c.Name)
+            .Skip((employeeParameter.pageNumber - 1) * employeeParameter.pageSize)
+            .Take(employeeParameter.pageSize)
             .ToListAsync();
+
+            var count = await FindByCondition(e => e.CompanyId.Equals(companyId), trackChanges).CountAsync();
+
+            return new PagedList<Employee>(employees, employeeParameter.pageNumber, employeeParameter.pageSize, count);
+        }
 
         public async Task<Employee> GetAnEmployeeFromACompany(Guid companyId, Guid employeeId, bool trackChanges)
         {
