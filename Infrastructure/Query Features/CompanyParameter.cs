@@ -6,5 +6,6 @@ namespace Infrastructure.Query_Features
 {
      public class CompanyParameter : Request_Parameters
     {
+        public string SearchTerm { get; set; }
     }
 }

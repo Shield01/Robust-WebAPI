@@ -1,6 +1,7 @@
 ﻿using Core.Models;
 using Infrastructure.Abstractions;
 using Infrastructure.Database_Context;
+using Infrastructure.Query_Extensions;
 using Infrastructure.Query_Features;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -47,6 +48,7 @@ namespace Infrastructure.Concrete_Implementations
         public async Task<PagedList<Company>> FindAllCompanies(CompanyParameter companyParameter, bool trackChanges)
         {
             var companies = await FindAll(trackChanges)
+                .Search(companyParameter.SearchTerm)
                 .OrderBy(c => c.Name)
                 .Skip((companyParameter.pageNumber - 1) * companyParameter.pageSize)
                 .Take(companyParameter.pageSize)

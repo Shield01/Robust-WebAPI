@@ -2,6 +2,7 @@
 using Infrastructure.Abstractions;
 using Infrastructure.Data_Transfer_Objects;
 using Infrastructure.Database_Context;
+using Infrastructure.Employee_Repository_Extensions;
 using Infrastructure.Query_Features;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -52,15 +53,12 @@ namespace Infrastructure.Concrete_Implementations
         public async Task<PagedList<Employee>> GetAllEmployeesOfACompany(Guid companyId, EmployeeParameter employeeParameter, bool trackChanges)
         {
             var employees = await FindByCondition(e => e.CompanyId
-            .Equals(companyId) && e.Age <= employeeParameter.MaxAge && e.Age >= employeeParameter.MinAge, trackChanges)
+            .Equals(companyId) && e.Age >= employeeParameter.MinAge && e.Age <= employeeParameter.MaxAge, trackChanges)
+            .Search(employeeParameter.SearchTerm)
             .OrderBy(c => c.Name)
-            .Skip((employeeParameter.pageNumber - 1) * employeeParameter.pageSize)
-            .Take(employeeParameter.pageSize)
             .ToListAsync();
 
-            var count = await FindByCondition(e => e.CompanyId.Equals(companyId), trackChanges).CountAsync();
-
-            return new PagedList<Employee>(employees, employeeParameter.pageNumber, employeeParameter.pageSize, count);
+            return PagedList<Employee>.ToPagedList(employees, employeeParameter.pageNumber, employeeParameter.pageSize);
         }
 
         public async Task<Employee> GetAnEmployeeFromACompany(Guid companyId, Guid employeeId, bool trackChanges)
