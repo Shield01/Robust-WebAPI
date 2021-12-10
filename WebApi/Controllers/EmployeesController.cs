@@ -53,6 +53,11 @@ namespace WebApi.Controllers
 
             var employees = await _repositoryManager.Employee.GetAllEmployeesOfACompany(companyId, employeeParameter,  trackChanges: false);
 
+            if (!employeeParameter.ValidAgeRange)
+            {
+                return BadRequest($"Age Parameter passed by the client is not valid (Max Age can't be less than minimu age)");
+            }
+
             Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(employees.MetaData));
 
             var employeeDTO = _mapper.Map<IEnumerable<EmployeeDTO>>(employees);

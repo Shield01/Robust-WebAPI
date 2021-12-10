@@ -987,3 +987,21 @@
 2021-12-10 02:16:25.3177 Info Validating config: TargetNames=logfile, ConfigItems=12, FilePath=C:\Users\CDL\OneDrive\Desktop\ZLibProjectMyWay\WebApi/LogConfiguration.config
 2021-12-10 02:17:08.3890 Info AppDomain Shutting down. Logger closing...
 2021-12-10 02:17:08.4544 Info Logger has been shut down.
+2021-12-10 16:22:48.1144 Info Auto loading assembly file: C:\Users\CDL\OneDrive\Desktop\ZLibProjectMyWay\WebApi\bin\Debug\netcoreapp3.1\NLog.Extensions.Logging.dll
+2021-12-10 16:22:48.2027 Info Loading assembly file: C:\Users\CDL\OneDrive\Desktop\ZLibProjectMyWay\WebApi\bin\Debug\netcoreapp3.1\NLog.Extensions.Logging.dll
+2021-12-10 16:22:48.4581 Info NLog.Extensions.Logging, Version=1.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 1.7.4.1610. Product version: 1.7.4+e2bffa9e949fb4760d75aca224e78631c063f087. GlobalAssemblyCache: False
+2021-12-10 16:22:48.4581 Info Auto loading assembly file: C:\Users\CDL\OneDrive\Desktop\ZLibProjectMyWay\WebApi\bin\Debug\netcoreapp3.1\NLog.Extensions.Logging.dll succeeded!
+2021-12-10 16:22:48.4786 Info Message Template Auto Format enabled
+2021-12-10 16:22:48.5907 Info Adding target FileTarget(Name=logfile)
+2021-12-10 16:22:48.6677 Info Validating config: TargetNames=logfile, ConfigItems=12, FilePath=C:\Users\CDL\OneDrive\Desktop\ZLibProjectMyWay\WebApi/LogConfiguration.config
+2021-12-10 16:23:38.5496 Info AppDomain Shutting down. Logger closing...
+2021-12-10 16:23:38.6210 Info Logger has been shut down.
+2021-12-10 16:23:56.4648 Info Auto loading assembly file: C:\Users\CDL\OneDrive\Desktop\ZLibProjectMyWay\WebApi\bin\Debug\netcoreapp3.1\NLog.Extensions.Logging.dll
+2021-12-10 16:23:56.4648 Info Loading assembly file: C:\Users\CDL\OneDrive\Desktop\ZLibProjectMyWay\WebApi\bin\Debug\netcoreapp3.1\NLog.Extensions.Logging.dll
+2021-12-10 16:23:56.6866 Info NLog.Extensions.Logging, Version=1.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 1.7.4.1610. Product version: 1.7.4+e2bffa9e949fb4760d75aca224e78631c063f087. GlobalAssemblyCache: False
+2021-12-10 16:23:56.6866 Info Auto loading assembly file: C:\Users\CDL\OneDrive\Desktop\ZLibProjectMyWay\WebApi\bin\Debug\netcoreapp3.1\NLog.Extensions.Logging.dll succeeded!
+2021-12-10 16:23:56.6920 Info Message Template Auto Format enabled
+2021-12-10 16:23:56.7321 Info Adding target FileTarget(Name=logfile)
+2021-12-10 16:23:56.7610 Info Validating config: TargetNames=logfile, ConfigItems=12, FilePath=C:\Users\CDL\OneDrive\Desktop\ZLibProjectMyWay\WebApi/LogConfiguration.config
+2021-12-10 16:28:10.2477 Info AppDomain Shutting down. Logger closing...
+2021-12-10 16:28:10.2870 Info Logger has been shut down.
