@@ -46,6 +46,7 @@ namespace WebApi.Controllers
 
         // GET: api/<EmployeesController>
         [HttpGet]
+        [HttpHead]
         [ServiceFilter(typeof(ValidateCompanyExistForGetEmployeesAction))]
         public async Task<IActionResult> GetEmployees(Guid companyId, [FromQuery] EmployeeParameter employeeParameter)
         {
