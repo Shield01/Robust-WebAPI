@@ -3,6 +3,7 @@ using Infrastructure.Database_Context;
 using Infrastructure.Repository_Manager;
 using LogService.Abstractions;
 using LogService.Implementations;
+using Marvin.Cache.Headers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -64,6 +65,22 @@ namespace WebApi.Extensions
                 opt.AssumeDefaultVersionWhenUnspecified = true;
                 opt.DefaultApiVersion = new ApiVersion(1, 0);
             });
+        }
+
+        public static void ConfigureCaching(this IServiceCollection services) => services.AddResponseCaching();
+
+        public static void ConfigureHeaderCaching(this IServiceCollection services)
+        {
+            services.AddHttpCacheHeaders(
+                (expirationOpt) =>
+                {
+                    expirationOpt.MaxAge = 65;
+                    expirationOpt.CacheLocation = CacheLocation.Public;
+                },
+                (validationOpt) => 
+                {
+                    validationOpt.MustRevalidate = true;
+                });
         }
     }
 }

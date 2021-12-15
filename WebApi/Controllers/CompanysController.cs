@@ -22,6 +22,7 @@ namespace WebApi.Controllers
     [ApiVersion("1.0")]
     [Route("api/companies")]
     [ApiController]
+    //[ResponseCache(CacheProfileName = "SetDurationLimit")]
     public class CompanysController : ControllerBase
     {
         private readonly IRepositoryManager _repositoryManager;
@@ -47,6 +48,7 @@ namespace WebApi.Controllers
 
         // GET: api/<CompanysController>
         [HttpGet(Name = "GetAllCompanies")]
+        //[ResponseCache(Duration = 60)]
         public async Task<IActionResult> GetAllCompanies([FromQuery] CompanyParameter companyParameter)
         {
             var companies = await _repositoryManager.Company.FindAllCompanies(companyParameter, trackChanges : true);

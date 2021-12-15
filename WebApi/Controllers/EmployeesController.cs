@@ -20,6 +20,7 @@ namespace WebApi.Controllers
 {
     [Route("api/companies/{companyId}/employees")]
     [ApiController]
+    [ResponseCache(CacheProfileName = "SetDurationLimit")]
     public class EmployeesController : ControllerBase
     {
         private readonly IMapper _mapper;

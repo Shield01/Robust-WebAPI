@@ -38,6 +38,7 @@ namespace WebApi
             services.AddControllers(config => {
                 config.RespectBrowserAcceptHeader = true;
                 config.ReturnHttpNotAcceptable = true;
+                config.CacheProfiles.Add("SetDurationLimit", new CacheProfile { Duration = 120 });
             }).AddNewtonsoftJson()
             .ConfigureCSVFormatter();
 
@@ -69,6 +70,10 @@ namespace WebApi
             services.AddScoped<ValidateCompanyExistForGetEmployeesAction>();
 
             services.ConfigureVersioning();
+
+            services.ConfigureCaching();
+
+            services.ConfigureHeaderCaching();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -103,6 +108,10 @@ namespace WebApi
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
                 c.RoutePrefix = string.Empty;
             });
+
+            app.UseResponseCaching();
+
+            app.UseHttpCacheHeaders();
 
             app.UseRouting();
 
