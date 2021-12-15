@@ -1,4 +1,5 @@
-﻿using Infrastructure.Data_Transfer_Objects;
+﻿using AspNetCoreRateLimit;
+using Infrastructure.Data_Transfer_Objects;
 using Infrastructure.Database_Context;
 using Infrastructure.Repository_Manager;
 using LogService.Abstractions;
@@ -75,12 +76,36 @@ namespace WebApi.Extensions
                 (expirationOpt) =>
                 {
                     expirationOpt.MaxAge = 65;
-                    expirationOpt.CacheLocation = CacheLocation.Public;
+                    expirationOpt.CacheLocation = CacheLocation.Private;
                 },
                 (validationOpt) => 
                 {
                     validationOpt.MustRevalidate = true;
                 });
+        }
+
+        public static void ConfigureRateThrotlling(this IServiceCollection services)
+        {
+            var rateLimitRule = new List<RateLimitRule>
+            {
+                new RateLimitRule
+                {
+                    Endpoint = "*",
+                    Limit = 3,
+                    Period = "5m"
+                }
+            };
+
+            services.Configure<IpRateLimitOptions>(opt =>
+            {
+                opt.GeneralRules = rateLimitRule;
+            });
+
+            services.AddSingleton<IRateLimitCounterStore, MemoryCacheRateLimitCounterStore>();
+
+            services.AddSingleton<IIpPolicyStore, MemoryCacheIpPolicyStore>();
+
+            services.AddSingleton<IRateLimitConfiguration, RateLimitConfiguration>();
         }
     }
 }

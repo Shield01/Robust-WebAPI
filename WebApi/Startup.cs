@@ -18,6 +18,7 @@ using AutoMapper;
 using LogService.Abstractions;
 using BusinessLogic.Exception_Handling;
 using WebApi.Action_Filters;
+using AspNetCoreRateLimit;
 
 namespace WebApi
 {
@@ -74,6 +75,12 @@ namespace WebApi
             services.ConfigureCaching();
 
             services.ConfigureHeaderCaching();
+
+            services.AddMemoryCache();
+
+            services.ConfigureRateThrotlling();
+
+            services.AddHttpContextAccessor();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -112,6 +119,8 @@ namespace WebApi
             app.UseResponseCaching();
 
             app.UseHttpCacheHeaders();
+
+            app.UseIpRateLimiting();
 
             app.UseRouting();
 
