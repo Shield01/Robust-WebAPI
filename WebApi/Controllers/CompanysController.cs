@@ -19,6 +19,7 @@ using WebApi.ModelBinders;
 
 namespace WebApi.Controllers
 {
+    [ApiVersion("1.0")]
     [Route("api/companies")]
     [ApiController]
     public class CompanysController : ControllerBase
@@ -45,7 +46,7 @@ namespace WebApi.Controllers
         }
 
         // GET: api/<CompanysController>
-        [HttpGet]
+        [HttpGet(Name = "GetAllCompanies")]
         public async Task<IActionResult> GetAllCompanies([FromQuery] CompanyParameter companyParameter)
         {
             var companies = await _repositoryManager.Company.FindAllCompanies(companyParameter, trackChanges : true);
@@ -99,7 +100,7 @@ namespace WebApi.Controllers
 
 
         // POST api/<CompanysController>
-        [HttpPost]
+        [HttpPost(Name = "CreateCompany")]
         [ServiceFilter(typeof(ValidationFilterAttributes))]
         public async Task<IActionResult> CreateCompany([FromBody] CompanyInputDTO company)
         {
@@ -208,7 +209,7 @@ namespace WebApi.Controllers
         [HttpOptions]
         public IActionResult GetOptions()
         {
-            Response.Headers.Add("Allow", "GET, OPTIONS, POST");
+            Response.Headers.Add("Allow", "GET, OPTIONS, POST, PATCH, PUT, DELETE");
 
             return Ok();
         }
