@@ -81,6 +81,13 @@ namespace WebApi
             services.ConfigureRateThrotlling();
 
             services.AddHttpContextAccessor();
+
+            services.AddHttpClient();
+
+            services.AddHttpClient("meta", c =>
+            {
+                c.BaseAddress = new Uri(Configuration.GetValue<string>("WeatherApi"));
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
